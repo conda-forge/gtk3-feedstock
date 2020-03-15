@@ -1,0 +1,37 @@
+c_compiler:
+- gcc
+c_compiler_version:
+- '7'
+cairo:
+- '1.16'
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
+docker_image:
+- condaforge/linux-anvil-comp7
+fontconfig:
+- '2.13'
+freetype:
+- 2.9.1
+gdk_pixbuf:
+- 2.36.12
+glib:
+- '2.58'
+harfbuzz:
+- '2'
+pango:
+- '1.42'
+pin_run_as_build:
+  cairo:
+    max_pin: x.x
+  fontconfig:
+    max_pin: x
+  freetype:
+    max_pin: x
+  gdk_pixbuf:
+    max_pin: x.x.x
+  harfbuzz:
+    max_pin: x
+  pango:
+    max_pin: x.x
