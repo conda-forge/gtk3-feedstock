@@ -19,8 +19,8 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 0
-  skip: True  # [win]
+  number: 1
+  skip: True  # [win and vc<14]
   # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
   # that resulted in missing symbols
   rpaths_patcher: patchelf  # [linux]
@@ -58,14 +58,15 @@ requirements:
     - atk
     - cairo
     - epoxy
-    - freetype
+    - freetype  # [not win]
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
     - gobject-introspection
-    - harfbuzz
+    - harfbuzz  # [not win]
     - libcups  # [linux]
+    - libiconv  # [win]
     - pango
     # dependencies needed with x11 enabled
     - at-spi2-atk  # [linux]
@@ -75,8 +76,9 @@ requirements:
   run:
     - gdk-pixbuf
     - glib
-    - harfbuzz
+    - harfbuzz  # [not win]
     - libcups  # [linux]
+    - libiconv  # [win]
     - pango
 
 test:
@@ -102,6 +104,10 @@ test:
     - test -f $PREFIX/include/gtk-3.0/gdk/x11/gdkx11window.h  # [linux]
     - test -f $PREFIX/include/gtk-3.0/gtk/gtk.h  # [unix]
     - test -f $PREFIX/include/gtk-3.0/unix-print/gtk/gtkunixprint.h  # [unix]
+    - if not exist %PREFIX%\\Library\\include\\gail-3.0\\libgail-util\\gail-util.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\gdk.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\win32\\gdkwin32window.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gtk\\gtk.h exit 1  # [win]
 
     # verify that libs get installed
     {% set libs = [
@@ -111,6 +117,23 @@ test:
     ] %}
     {% for lib in libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs${VS_MAJOR}.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
+    {% endfor %}
+
+    # verify that pkgconfig files get installed
+    {% set pcs = [
+        "gail",
+        "gdk",
+        "gtk+",
+    ] %}
+    {% set pcs = pcs + ["gtk+-unix-print"] %}  # [unix]
+    {% set pcs = pcs + ["gdk-x11", "gtk+-x11"] %}  # [linux]
+    {% set pcs = pcs + ["gdk-quartz", "gtk+-quartz"] %}  # [osx]
+    {% set pcs = pcs + ["gdk-win32", "gtk+-win32"] %}  # [win]
+    {% for pc in pcs %}
+    - test -f $PREFIX/lib/pkgconfig/{{ pc }}-3.0.pc  # [unix]
+    - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}-3.0.pc exit 1  # [win]
     {% endfor %}
 
 about:
