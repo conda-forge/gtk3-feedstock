@@ -117,7 +117,7 @@ test:
     ] %}
     {% for lib in libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
-    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs%VS_MAJOR%.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vc }}.dll exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
     {% endfor %}
 
