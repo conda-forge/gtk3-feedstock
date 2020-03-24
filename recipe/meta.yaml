@@ -19,8 +19,8 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 0
-  skip: True  # [win]
+  number: 1
+  skip: True  # [win and vc<14]
   # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
   # that resulted in missing symbols
   rpaths_patcher: patchelf  # [linux]
@@ -58,14 +58,15 @@ requirements:
     - atk
     - cairo
     - epoxy
-    - freetype
+    - freetype  # [not win]
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
     - gobject-introspection
-    - harfbuzz
+    - harfbuzz  # [not win]
     - libcups  # [linux]
+    - libiconv  # [win]
     - pango
     # dependencies needed with x11 enabled
     - at-spi2-atk  # [linux]
@@ -75,11 +76,14 @@ requirements:
   run:
     - gdk-pixbuf
     - glib
-    - harfbuzz
+    - harfbuzz  # [not win]
     - libcups  # [linux]
+    - libiconv  # [win]
     - pango
 
 test:
+  requires:
+    - pkg-config
   commands:
     # check that the binaries can run
     - gtk-encode-symbolic-svg --help
@@ -102,21 +106,45 @@ test:
     - test -f $PREFIX/include/gtk-3.0/gdk/x11/gdkx11window.h  # [linux]
     - test -f $PREFIX/include/gtk-3.0/gtk/gtk.h  # [unix]
     - test -f $PREFIX/include/gtk-3.0/unix-print/gtk/gtkunixprint.h  # [unix]
+    - if not exist %PREFIX%\\Library\\include\\gail-3.0\\libgail-util\\gail-util.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\gdk.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\win32\\gdkwin32window.h exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gtk\\gtk.h exit 1  # [win]
 
-    # verify that libs get installed
-    {% set libs = [
-        "gailutil-3",
-        "gdk-3",
-        "gtk-3",
+    # verify that pkgconfig files get installed
+    {% set pcs = [
+        "gail-3.0",
+        "gdk-3.0",
+        "gtk+-3.0",
     ] %}
-    {% for lib in libs %}
+    {% set pcs = pcs + ["gtk+-unix-print-3.0"] %}  # [unix]
+    {% set pcs = pcs + ["gdk-x11-3.0", "gtk+-x11-3.0"] %}  # [linux]
+    {% set pcs = pcs + ["gdk-quartz-3.0", "gtk+-quartz-3.0"] %}  # [osx]
+    {% set pcs = pcs + ["gdk-win32-3.0", "gtk+-win32-3.0"] %}  # [win]
+    {% for pc in pcs %}
+    - test -f $PREFIX/lib/pkgconfig/{{ pc }}.pc  # [unix]
+    - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}.pc exit 1  # [win]
+    {% endfor %}
+
+    # verify that libs get installed and can be located through pkg-config
+    {% set pc_libs = [
+        ("gail-3.0", "gailutil-3"),
+        ("gdk-3.0", "gdk-3"),
+        ("gtk+-3.0", "gtk-3"),
+    ] %}
+    {% for pc, lib in pc_libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vc }}.dll exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vc }}.dll" exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
     {% endfor %}
 
 about:
   home: http://www.gtk.org/
-  license: GPL-2.0
-  license_family: GPL
+  license: LGPL-2.0-or-later
+  license_family: LGPL
   license_file: COPYING
   summary: 'Version 3 of the Gtk+ graphical toolkit'
   description: |
