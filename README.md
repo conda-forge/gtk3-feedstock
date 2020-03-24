@@ -3,7 +3,7 @@ About gtk3
 
 Home: http://www.gtk.org/
 
-Package license: GPL-2.0
+Package license: LGPL-2.0-or-later
 
 Feedstock license: BSD 3-Clause
 
