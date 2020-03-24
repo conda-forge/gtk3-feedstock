@@ -82,6 +82,8 @@ requirements:
     - pango
 
 test:
+  requires:
+    - pkg-config
   commands:
     # check that the binaries can run
     - gtk-encode-symbolic-svg --help
@@ -109,31 +111,34 @@ test:
     - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\win32\\gdkwin32window.h exit 1  # [win]
     - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gtk\\gtk.h exit 1  # [win]
 
-    # verify that libs get installed
-    {% set libs = [
-        "gailutil-3",
-        "gdk-3",
-        "gtk-3",
-    ] %}
-    {% for lib in libs %}
-    - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
-    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vc }}.dll exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
-    {% endfor %}
-
     # verify that pkgconfig files get installed
     {% set pcs = [
-        "gail",
-        "gdk",
-        "gtk+",
+        "gail-3.0",
+        "gdk-3.0",
+        "gtk+-3.0",
     ] %}
-    {% set pcs = pcs + ["gtk+-unix-print"] %}  # [unix]
-    {% set pcs = pcs + ["gdk-x11", "gtk+-x11"] %}  # [linux]
-    {% set pcs = pcs + ["gdk-quartz", "gtk+-quartz"] %}  # [osx]
-    {% set pcs = pcs + ["gdk-win32", "gtk+-win32"] %}  # [win]
+    {% set pcs = pcs + ["gtk+-unix-print-3.0"] %}  # [unix]
+    {% set pcs = pcs + ["gdk-x11-3.0", "gtk+-x11-3.0"] %}  # [linux]
+    {% set pcs = pcs + ["gdk-quartz-3.0", "gtk+-quartz-3.0"] %}  # [osx]
+    {% set pcs = pcs + ["gdk-win32-3.0", "gtk+-win32-3.0"] %}  # [win]
     {% for pc in pcs %}
-    - test -f $PREFIX/lib/pkgconfig/{{ pc }}-3.0.pc  # [unix]
-    - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}-3.0.pc exit 1  # [win]
+    - test -f $PREFIX/lib/pkgconfig/{{ pc }}.pc  # [unix]
+    - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}.pc exit 1  # [win]
+    {% endfor %}
+
+    # verify that libs get installed and can be located through pkg-config
+    {% set pc_libs = [
+        ("gail-3.0", "gailutil-3"),
+        ("gdk-3.0", "gdk-3"),
+        ("gtk+-3.0", "gtk-3"),
+    ] %}
+    {% for pc, lib in pc_libs %}
+    - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vc }}.dll exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vc }}.dll" exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
     {% endfor %}
 
 about:
