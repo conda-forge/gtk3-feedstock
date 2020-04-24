@@ -129,6 +129,7 @@ test:
     {% endfor %}
 
     # verify that libs get installed and can be located through pkg-config
+    {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
     {% set pc_libs = [
         ("gail-3.0", "gailutil-3"),
         ("gdk-3.0", "gdk-3"),
@@ -137,7 +138,7 @@ test:
     {% for pc, lib in pc_libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
     - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
-    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vc }}.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vc }}.dll" exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
