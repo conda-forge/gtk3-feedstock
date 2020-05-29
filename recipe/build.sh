@@ -12,6 +12,9 @@ meson_config_args=(
     -D wayland_backend=false
 )
 
+# ensure that the post install script is ignored
+export DESTDIR="/"
+
 meson setup builddir \
     "${meson_config_args[@]}" \
     --prefix=$PREFIX \

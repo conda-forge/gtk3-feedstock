@@ -160,4 +160,5 @@ Feedstock Maintainers
 
 * [@ryanvolz](https://github.com/ryanvolz/)
 * [@stuarteberg](https://github.com/stuarteberg/)
+* [@tschoonj](https://github.com/tschoonj/)
 
