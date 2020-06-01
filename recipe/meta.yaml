@@ -34,9 +34,7 @@ build:
 
 requirements:
   build:
-    - meson  # [not win]
-    # see https://github.com/conda-forge/meson-feedstock/issues/30
-    - meson 0.53.2  # [win]
+    - meson
     - ninja
     - pkg-config
     - pthread-stubs  # [linux]
