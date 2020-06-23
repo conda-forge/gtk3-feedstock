@@ -2,7 +2,7 @@
 # This file is licensed under a 3-clause BSD license; see LICENSE.txt.
 
 {% set name = "gtk+" %}
-{% set version = "3.24.18" %}
+{% set version = "3.24.20" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -10,15 +10,16 @@ package:
   version: {{ version }}
 
 source:
-  url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: f5eaff7f4602e44a9ca7bfad5382d7a73e509a8f00b0bcab91c198d096172ad2
+  sha256: 2dac69f716e8d04ba7a95091589e2baaec95dcace932cb15839163db479b1df3
   patches:
     - m_pi.patch
     - no-module-warning.patch
+    # remove the following after 3.24.20
+    - add-check-version.patch
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win and vc<14]
   # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
   # that resulted in missing symbols
