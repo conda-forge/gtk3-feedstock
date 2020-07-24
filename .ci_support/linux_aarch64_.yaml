@@ -1,15 +1,25 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
+BUILD:
+- aarch64-conda_cos7-linux-gnu
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '10'
+- '7'
 cairo:
 - '1.16'
+cdt_arch:
+- aarch64
+cdt_name:
+- cos7
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
+dbus:
+- '1'
+docker_image:
+- condaforge/linux-anvil-aarch64
+fontconfig:
+- '2.13'
 freetype:
 - 2.9.1
 gdk_pixbuf:
@@ -18,15 +28,15 @@ glib:
 - '2.58'
 harfbuzz:
 - '2'
-macos_machine:
-- x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.9'
 pango:
 - '1.42'
 pin_run_as_build:
   cairo:
     max_pin: x.x
+  dbus:
+    max_pin: x
+  fontconfig:
+    max_pin: x
   freetype:
     max_pin: x
   gdk_pixbuf:

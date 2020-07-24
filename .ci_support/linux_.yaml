@@ -8,6 +8,8 @@ channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
+dbus:
+- '1'
 docker_image:
 - condaforge/linux-anvil-comp7
 fontconfig:
@@ -25,6 +27,8 @@ pango:
 pin_run_as_build:
   cairo:
     max_pin: x.x
+  dbus:
+    max_pin: x
   fontconfig:
     max_pin: x
   freetype:
