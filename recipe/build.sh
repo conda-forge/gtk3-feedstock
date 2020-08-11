@@ -17,6 +17,7 @@ export DESTDIR="/"
 
 meson setup builddir \
     "${meson_config_args[@]}" \
+    --buildtype=release \
     --prefix=$PREFIX \
     --libdir=$PREFIX/lib  \
     --wrap-mode=nofallback
