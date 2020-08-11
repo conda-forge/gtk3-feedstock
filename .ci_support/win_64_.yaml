@@ -1,37 +1,29 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
 c_compiler:
-- clang
-c_compiler_version:
-- '10'
+- vs2017
 cairo:
 - '1.16'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
-freetype:
-- 2.9.1
 gdk_pixbuf:
-- 2.36.12
+- 2.38.2
 glib:
 - '2.58'
-harfbuzz:
-- '2'
-macos_machine:
-- x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.9'
+libiconv:
+- '1.15'
 pango:
 - '1.42'
 pin_run_as_build:
   cairo:
     max_pin: x.x
-  freetype:
-    max_pin: x
   gdk_pixbuf:
     max_pin: x.x.x
-  harfbuzz:
-    max_pin: x
+  libiconv:
+    max_pin: x.x
   pango:
     max_pin: x.x
+target_platform:
+- win-64
+vc:
+- '14'
