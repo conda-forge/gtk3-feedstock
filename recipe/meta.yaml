@@ -92,10 +92,7 @@ test:
     - gtk-query-immodules-3.0
     - gtk-update-icon-cache --help
     # other binaries require a display, check that they get installed
-    {% set cmds = [
-        "gtk-builder-tool",
-        "gtk-query-settings",
-    ] %}
+    {% set cmds = ["gtk-builder-tool", "gtk-query-settings"] %}
     {% for cmd in cmds %}
     - command -v {{ cmd }}  # [unix]
     - where {{ cmd }}  # [win]
@@ -113,11 +110,7 @@ test:
     - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gtk\\gtk.h exit 1  # [win]
 
     # verify that pkgconfig files get installed
-    {% set pcs = [
-        "gail-3.0",
-        "gdk-3.0",
-        "gtk+-3.0",
-    ] %}
+    {% set pcs = ["gail-3.0", "gdk-3.0", "gtk+-3.0"] %}
     {% set pcs = pcs + ["gtk+-unix-print-3.0"] %}  # [unix]
     {% set pcs = pcs + ["gdk-x11-3.0", "gtk+-x11-3.0"] %}  # [linux]
     {% set pcs = pcs + ["gdk-quartz-3.0", "gtk+-quartz-3.0"] %}  # [osx]
@@ -129,11 +122,8 @@ test:
 
     # verify that libs get installed and can be located through pkg-config
     {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
-    {% set pc_libs = [
-        ("gail-3.0", "gailutil-3"),
-        ("gdk-3.0", "gdk-3"),
-        ("gtk+-3.0", "gtk-3"),
-    ] %}
+    {% set pc_libs = [("gail-3.0", "gailutil-3"), ("gdk-3.0", "gdk-3")] %}
+    {% set pc_libs = pc_libs + [("gtk+-3.0", "gtk-3")] %}
     {% for pc, lib in pc_libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
     - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
