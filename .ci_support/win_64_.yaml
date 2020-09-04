@@ -11,7 +11,7 @@ gdk_pixbuf:
 glib:
 - '2.58'
 libiconv:
-- '1.15'
+- '1.16'
 pango:
 - '1.42'
 pin_run_as_build:
