@@ -11,7 +11,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 freetype:
-- 2.9.1
+- '2'
 gdk_pixbuf:
 - 2.36.12
 glib:

@@ -5,9 +5,13 @@ Home: http://www.gtk.org/
 
 Package license: LGPL-2.0-or-later
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gtk3-feedstock/blob/master/LICENSE.txt)
 
 Summary: Version 3 of the Gtk+ graphical toolkit
+
+Development: https://gitlab.gnome.org/GNOME/gtk
+
+Documentation: https://developer.gnome.org/gtk3/
 
 GTK is a multi-platform toolkit for creating graphical user interfaces.
 Offering a complete set of widgets, GTK is suitable for projects ranging
@@ -43,6 +47,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=9294&branchName=master">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gtk3-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=9294&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gtk3-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_" alt="variant">
                 </a>
               </td>
             </tr><tr>
