@@ -8,6 +8,8 @@ set -ex
 # meson needs this to determine where the g-ir-scanner script is located
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 
+export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
+
 meson_config_args=(
     -D gtk_doc=false
     -D demos=false
