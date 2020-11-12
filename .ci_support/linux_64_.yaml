@@ -17,7 +17,7 @@ fontconfig:
 freetype:
 - '2'
 gdk_pixbuf:
-- 2.36.12
+- '2'
 glib:
 - 2.64.6
 harfbuzz:
