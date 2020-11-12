@@ -19,7 +19,7 @@ freetype:
 gdk_pixbuf:
 - 2.36.12
 glib:
-- '2.58'
+- 2.64.6
 harfbuzz:
 - '2'
 pango:
