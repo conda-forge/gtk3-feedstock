@@ -35,6 +35,7 @@ requirements:
   build:
     - meson
     - ninja
+    - gobject-introspection
     - pkg-config
     - pthread-stubs  # [linux]
     - {{ compiler('c') }}
@@ -63,7 +64,6 @@ requirements:
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
-    - gobject-introspection
     - harfbuzz  # [not win]
     - libcups  # [linux]
     - libiconv  # [win]

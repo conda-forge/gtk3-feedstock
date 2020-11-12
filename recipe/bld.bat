@@ -1,12 +1,9 @@
 setlocal EnableDelayedExpansion
 @echo on
 
-:: add include dirs to search path
-set "INCLUDE=%INCLUDE%;%LIBRARY_INC%\atk-1.0;%LIBRARY_INC%\pango-1.0"
-
 :: set pkg-config path so that host deps can be found
 :: (set as env var so it's used by both meson and during build with g-ir-scanner)
-set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig"
+set "PKG_CONFIG_PATH=%LIBRARY_LIB%\pkgconfig;%LIBRARY_PREFIX%\share\pkgconfig;%BUILD_PREFIX%\Library\lib\pkgconfig"
 
 :: ensure that the post install script is ignored
 set "DESTDIR=%BUILD_PREFIX:~0,3%"
