@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '10'
+- '11'
 cairo:
 - '1.16'
 channel_sources:
@@ -27,8 +27,6 @@ pin_run_as_build:
     max_pin: x.x
   freetype:
     max_pin: x
-  gdk_pixbuf:
-    max_pin: x.x.x
   harfbuzz:
     max_pin: x
   pango:
