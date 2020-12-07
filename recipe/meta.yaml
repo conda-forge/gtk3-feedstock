@@ -2,7 +2,7 @@
 # This file is licensed under a 3-clause BSD license; see LICENSE.txt.
 
 {% set name = "gtk+" %}
-{% set version = "3.24.23" %}
+{% set version = "3.24.24" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -11,14 +11,14 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 5d864d248357a2251545b3387b35942de5f66e4c66013f0962eb5cb6f8dae2b1
+  sha256: cc9d4367c55b724832f6b09ab85481738ea456871f0381768a6a99335a98378a
   patches:
     - m_pi.patch
     - no-module-warning.patch
 
 build:
-  number: 2
-  skip: True  # [win and vc<14]
+  number: 0
+  skip: true  # [win and vc<14]
   # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
   # that resulted in missing symbols
   rpaths_patcher: patchelf  # [linux]
@@ -29,7 +29,7 @@ build:
   missing_dso_whitelist:
     - '*/libX11.so*'  # [linux]
     - '*/libXext.so*'  # [linux]
-    - '/usr/lib/libcups.2.dylib'  # [osx]
+    - /usr/lib/libcups.2.dylib    # [osx]
 
 requirements:
   build:
@@ -138,7 +138,7 @@ about:
   license: LGPL-2.0-or-later
   license_family: LGPL
   license_file: COPYING
-  summary: 'Version 3 of the Gtk+ graphical toolkit'
+  summary: Version 3 of the Gtk+ graphical toolkit
   description: |
     GTK is a multi-platform toolkit for creating graphical user interfaces.
     Offering a complete set of widgets, GTK is suitable for projects ranging
