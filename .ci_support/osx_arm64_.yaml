@@ -1,19 +1,15 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
 c_compiler:
-- gcc
+- clang
 c_compiler_version:
-- '9'
+- '11'
 cairo:
 - '1.16'
-cdt_name:
-- cos6
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
-docker_image:
-- quay.io/condaforge/linux-anvil-comp7
-fontconfig:
-- '2.13'
 freetype:
 - '2'
 gdk_pixbuf:
@@ -22,13 +18,13 @@ glib:
 - '2.66'
 harfbuzz:
 - '2'
+macos_machine:
+- arm64-apple-darwin20.0.0
 pango:
 - '1.42'
 pin_run_as_build:
   cairo:
     max_pin: x.x
-  fontconfig:
-    max_pin: x
   freetype:
     max_pin: x
   harfbuzz:
@@ -36,7 +32,4 @@ pin_run_as_build:
   pango:
     max_pin: x.x
 target_platform:
-- linux-64
-zip_keys:
-- - cdt_name
-  - docker_image
+- osx-arm64
