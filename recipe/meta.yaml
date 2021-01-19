@@ -38,6 +38,7 @@ requirements:
     - gobject-introspection
     - pkg-config
     - pthread-stubs  # [linux]
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ cdt('libice-devel') }}  # [linux]
     - {{ cdt('libsm-devel') }}  # [linux]
