@@ -19,7 +19,7 @@ freetype:
 gdk_pixbuf:
 - '2'
 glib:
-- '2.66'
+- '2'
 harfbuzz:
 - '2'
 pango:
@@ -37,3 +37,6 @@ pin_run_as_build:
     max_pin: x.x
 target_platform:
 - linux-64
+zip_keys:
+- - cdt_name
+  - docker_image
