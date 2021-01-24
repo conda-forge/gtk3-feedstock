@@ -75,6 +75,8 @@ requirements:
   run:
     - hicolor-icon-theme
     - pango
+    # The post-links scripts use these
+    - glib-tools
 
 test:
   requires:
