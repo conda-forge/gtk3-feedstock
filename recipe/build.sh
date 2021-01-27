@@ -12,6 +12,11 @@ export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
 
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
 
+if [[ "$target_platform" == "osx-arm64" && "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
+    # get meson to find pkg-config when cross compiling
+    export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+f
+
 meson_config_args=(
     -D gtk_doc=false
     -D demos=false
