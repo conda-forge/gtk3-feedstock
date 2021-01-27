@@ -8,7 +8,7 @@ set -ex
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 # get meson to find pkg-config when cross compiling
-export PKG_CONFIG_FOR_BUILD=$BUILD_PREFIX/bin/pkg-config
+export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
 # need to find gobject-introspection-1.0 as a "native" (build) pkg-config dep
 # meson uses PKG_CONFIG_PATH to search when not cross-compiling and
