@@ -1,10 +1,11 @@
 #! /bin/bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 # Prior to conda-forge, Copyright 2014-2019 Peter Williams and collaborators.
 # This file is licensed under a 3-clause BSD license; see LICENSE.txt.
 
 set -ex
+
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 # get meson to find pkg-config when cross compiling
 export PKG_CONFIG_FOR_BUILD=$BUILD_PREFIX/bin/pkg-config
