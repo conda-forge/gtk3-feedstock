@@ -28,7 +28,7 @@ meson setup builddir \
     "${meson_config_args[@]}" \
     --buildtype=release \
     --prefix=$PREFIX \
-    --libdir=lib \
+    -Dlibdir=lib \
     --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
