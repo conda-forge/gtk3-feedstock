@@ -9,9 +9,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
 fi
 
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
-
 # get meson to find pkg-config when cross compiling
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
 
