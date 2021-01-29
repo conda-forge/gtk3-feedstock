@@ -4,7 +4,7 @@
 
 set -ex
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   # interferes with build env python that we actually use for the build
   unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
 fi
