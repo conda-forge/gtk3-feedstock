@@ -16,6 +16,8 @@ gdk_pixbuf:
 - '2'
 harfbuzz:
 - '2'
+libglib:
+- '2'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pango:

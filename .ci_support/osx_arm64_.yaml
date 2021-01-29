@@ -16,6 +16,8 @@ gdk_pixbuf:
 - '2'
 harfbuzz:
 - '2'
+libglib:
+- '2'
 macos_machine:
 - arm64-apple-darwin20.0.0
 pango:
