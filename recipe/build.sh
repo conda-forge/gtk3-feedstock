@@ -4,6 +4,11 @@
 
 set -ex
 
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+  # interferes with build env python that we actually use for the build
+  unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
+fi
+
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
