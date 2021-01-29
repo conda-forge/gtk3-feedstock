@@ -65,6 +65,7 @@ requirements:
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
+    - gobject-introspection  # [build_platform != target_platform]
     - harfbuzz  # [not win]
     - libcups  # [linux]
     - libiconv  # [win]
