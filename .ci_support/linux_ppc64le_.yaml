@@ -18,9 +18,9 @@ freetype:
 - '2'
 gdk_pixbuf:
 - '2'
-harfbuzz:
+glib:
 - '2'
-libglib:
+harfbuzz:
 - '2'
 pango:
 - '1.42'

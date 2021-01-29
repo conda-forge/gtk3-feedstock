@@ -14,9 +14,9 @@ freetype:
 - '2'
 gdk_pixbuf:
 - '2'
-harfbuzz:
+glib:
 - '2'
-libglib:
+harfbuzz:
 - '2'
 macos_machine:
 - x86_64-apple-darwin13.4.0
