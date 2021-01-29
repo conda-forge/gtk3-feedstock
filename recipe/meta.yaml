@@ -32,6 +32,7 @@ build:
 
 requirements:
   build:
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - meson
     - ninja
     - gdk-pixbuf  # [build_platform != target_platform]
