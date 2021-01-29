@@ -34,7 +34,8 @@ requirements:
   build:
     - meson
     - ninja
-    - glib-tools
+    - gdk-pixbuf  # [build_platform != target_platform]
+    - glib-tools  # [build_platform != target_platform]
     - gnuconfig  # [unix]
     - gobject-introspection
     - pkg-config
