@@ -64,7 +64,7 @@ requirements:
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
-    - libglib
+    - glib
     - harfbuzz  # [not win]
     - libcups  # [linux]
     - libiconv  # [win]
