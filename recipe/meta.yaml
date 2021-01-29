@@ -34,10 +34,11 @@ requirements:
   build:
     - meson
     - ninja
+    - glib-tools
+    - gnuconfig  # [unix]
     - gobject-introspection
     - pkg-config
     - pthread-stubs  # [linux]
-    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ cdt('libice-devel') }}  # [linux]
     - {{ cdt('libsm-devel') }}  # [linux]
@@ -63,7 +64,7 @@ requirements:
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
-    - glib
+    - libglib
     - harfbuzz  # [not win]
     - libcups  # [linux]
     - libiconv  # [win]
