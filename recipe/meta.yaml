@@ -34,8 +34,6 @@ requirements:
   build:
     - meson
     - ninja
-    - gdk-pixbuf  # [build_platform != target_platform]
-    - glib-tools  # [build_platform != target_platform]
     - gobject-introspection
     - pkg-config
     - pthread-stubs  # [linux]
@@ -56,6 +54,17 @@ requirements:
     - {{ cdt('mesa-libEGL-devel') }}  # [linux]
     - {{ cdt('mesa-libGL-devel') }}  # [linux]
     - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    # for native build prior to cross build
+    - atk         # [build_platform != target_platform]
+    - cairo       # [build_platform != target_platform]
+    - epoxy       # [build_platform != target_platform]
+    - freetype    # [not win and (build_platform != target_platform)]
+    - fribidi     # [build_platform != target_platform]
+    - gdk-pixbuf  # [build_platform != target_platform]
+    - gettext     # [osx and (build_platform != target_platform)]
+    - glib        # [build_platform != target_platform]
+    - harfbuzz    # [not win and (build_platform != target_platform)]
+    - pango       # [build_platform != target_platform]
   host:
     - atk
     - cairo
@@ -65,7 +74,6 @@ requirements:
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
-    - gobject-introspection  # [build_platform != target_platform]
     - harfbuzz  # [not win]
     - libcups  # [linux]
     - libiconv  # [win]
