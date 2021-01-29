@@ -8,8 +8,6 @@ channel_targets:
 - conda-forge main
 gdk_pixbuf:
 - '2'
-glib:
-- '2'
 libiconv:
 - '1.16'
 pango:

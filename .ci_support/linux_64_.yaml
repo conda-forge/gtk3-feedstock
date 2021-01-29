@@ -18,8 +18,6 @@ freetype:
 - '2'
 gdk_pixbuf:
 - '2'
-glib:
-- '2'
 harfbuzz:
 - '2'
 pango:
