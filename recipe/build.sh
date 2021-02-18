@@ -24,6 +24,9 @@ meson_config_args=(
     -D wayland_backend=false
 )
 
+if test $(uname) == 'Darwin' ; then
+	meson_config_args+=("-Dprint_backends=file,lpr")
+fi
 
 # ensure that the post install script is ignored
 export DESTDIR="/"
