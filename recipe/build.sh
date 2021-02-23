@@ -24,6 +24,9 @@ meson_config_args=(
     -D wayland_backend=false
 )
 
+if test $(uname) == 'Darwin' ; then
+	meson_config_args+=("-Dprint_backends=file,lpr")
+fi
 
 # ensure that the post install script is ignored
 export DESTDIR="/"
@@ -32,7 +35,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
   (
     mkdir -p native-build
-    pushd native-build
 
     export CC=$CC_FOR_BUILD
     export OBJC=$OBJC_FOR_BUILD
@@ -47,20 +49,19 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     export host_alias=$build_alias
     export PKG_CONFIG_PATH=$BUILD_PREFIX/lib/pkgconfig
 
-    meson "${meson_config_args[@]}" \
+    meson setup native-build \
+        "${meson_config_args[@]}" \
         --buildtype=release \
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
-        --wrap-mode=nofallback \
-        ..
+        --wrap-mode=nofallback
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
     # by glib are the same for the native and cross builds
     export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-save.sh
-    ninja -v -j ${CPU_COUNT}
-    ninja install -j ${CPU_COUNT}
-    popd
+    ninja -v -C native-build -j ${CPU_COUNT}
+    ninja -C native-build install -j ${CPU_COUNT}
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
