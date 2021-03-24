@@ -86,6 +86,7 @@ requirements:
     #- libxkbcommon  # [linux]
   run:
     - hicolor-icon-theme
+    - {{ pin_compatible('libcups') }}  # [linux]
     - pango
     # The post-links scripts use these
     - glib-tools
