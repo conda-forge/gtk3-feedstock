@@ -17,7 +17,7 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 0
+  number: 1
   # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
   # that resulted in missing symbols
   rpaths_patcher: patchelf  # [linux]
@@ -59,23 +59,23 @@ requirements:
     - atk         # [build_platform != target_platform]
     - cairo       # [build_platform != target_platform]
     - epoxy       # [build_platform != target_platform]
-    - freetype    # [not win and (build_platform != target_platform)]
+    - freetype    # [build_platform != target_platform]
     - fribidi     # [build_platform != target_platform]
     - gdk-pixbuf  # [build_platform != target_platform]
     - gettext     # [osx and (build_platform != target_platform)]
     - glib        # [build_platform != target_platform]
-    - harfbuzz    # [not win and (build_platform != target_platform)]
+    - harfbuzz    # [build_platform != target_platform]
     - pango       # [build_platform != target_platform]
   host:
     - atk
     - cairo
     - epoxy
-    - freetype  # [not win]
+    - freetype
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
     - glib
-    - harfbuzz  # [not win]
+    - harfbuzz
     - libcups  # [linux]
     - libiconv  # [win]
     - pango
@@ -86,6 +86,7 @@ requirements:
     #- libxkbcommon  # [linux]
   run:
     - hicolor-icon-theme
+    - {{ pin_compatible('libcups') }}  # [linux]
     - pango
     # The post-links scripts use these
     - glib-tools
@@ -93,6 +94,7 @@ requirements:
 test:
   requires:
     - pkg-config
+    - pygobject
   commands:
     # check that the binaries can run
     - gtk-encode-symbolic-svg --help
