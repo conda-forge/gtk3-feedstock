@@ -93,6 +93,7 @@ requirements:
 test:
   requires:
     - pkg-config
+    - pygobject
   commands:
     # check that the binaries can run
     - gtk-encode-symbolic-svg --help
