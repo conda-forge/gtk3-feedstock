@@ -6,17 +6,25 @@ channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
+freetype:
+- '2'
 gdk_pixbuf:
 - '2'
 glib:
 - '2'
+harfbuzz:
+- '2'
 libiconv:
 - '1.16'
 pango:
-- '1.42'
+- '1.48'
 pin_run_as_build:
   cairo:
     max_pin: x.x
+  freetype:
+    max_pin: x
+  harfbuzz:
+    max_pin: x
   libiconv:
     max_pin: x.x
   pango:
