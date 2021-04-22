@@ -24,12 +24,22 @@ set ^"MESON_OPTIONS=^
  ^"
 
 :: configure build using meson
-meson setup builddir !MESON_OPTIONS!
+meson setup forgebuild !MESON_OPTIONS!
 if errorlevel 1 exit 1
 
 :: print results of build configuration
-meson configure builddir
+meson configure forgebuild
 if errorlevel 1 exit 1
 
-ninja -v -C builddir -j %CPU_COUNT%
+ninja -v -C forgebuild -j %CPU_COUNT%
+if errorlevel 1 exit 1
+
+ninja -C forgebuild install -j %CPU_COUNT%
+if errorlevel 1 exit 1
+
+:: create directory for modules so post-link script doesn't fail
+set "MODULEDIR=%LIBRARY_LIB%\gtk-3.0\3.0.0"
+if not exist "%MODULEDIR%" md "%MODULEDIR%"
+if errorlevel 1 exit 1
+type nul > "%MODULEDIR%\.keep"
 if errorlevel 1 exit 1
