@@ -47,7 +47,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     unset CFLAGS
     unset CPPFLAGS
     export host_alias=$build_alias
-    export PKG_CONFIG_PATH=$BUILD_PREFIX/lib/pkgconfig
 
     meson setup native-build \
         "${meson_config_args[@]}" \
@@ -55,6 +54,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
         --wrap-mode=nofallback
+    # print full meson configuration
+    meson configure native-build
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
@@ -66,12 +67,14 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
-meson setup builddir \
+meson setup forgebuild \
     ${MESON_ARGS} \
     "${meson_config_args[@]}" \
     --buildtype=release \
     --prefix=$PREFIX \
     -Dlibdir=lib \
     --wrap-mode=nofallback
-ninja -v -C builddir -j ${CPU_COUNT}
-ninja -C builddir install -j ${CPU_COUNT}
+# print full meson configuration
+meson configure forgebuild
+ninja -v -C forgebuild -j ${CPU_COUNT}
+ninja -C forgebuild install -j ${CPU_COUNT}

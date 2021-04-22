@@ -24,17 +24,17 @@ set ^"MESON_OPTIONS=^
  ^"
 
 :: configure build using meson
-meson setup builddir !MESON_OPTIONS!
+meson setup forgebuild !MESON_OPTIONS!
 if errorlevel 1 exit 1
 
 :: print results of build configuration
-meson configure builddir
+meson configure forgebuild
 if errorlevel 1 exit 1
 
-ninja -v -C builddir -j %CPU_COUNT%
+ninja -v -C forgebuild -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
-ninja -C builddir install -j %CPU_COUNT%
+ninja -C forgebuild install -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
 :: create directory for modules so post-link script doesn't fail
