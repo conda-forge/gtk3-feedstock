@@ -2,7 +2,7 @@
 # This file is licensed under a 3-clause BSD license; see LICENSE.txt.
 
 {% set name = "gtk+" %}
-{% set version = "3.24.28" %}
+{% set version = "3.24.29" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: b04e09763367f1ce932cd2ee3a359d4de150e1c38e7bef7d29aa72557a6b47c6
+  sha256: f57ec4ade8f15cab0c23a80dcaee85b876e70a8823d9105f067ce335a8268caa
   patches:
     - m_pi.patch
     - no-module-warning.patch
