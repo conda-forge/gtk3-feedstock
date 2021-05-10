@@ -1,4 +1,4 @@
-setlocal EnableDelayedExpansion
+setlocal EnableExtensions EnableDelayedExpansion
 @echo on
 
 :: set pkg-config path so that host deps can be found
@@ -35,4 +35,11 @@ ninja -v -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
 
 ninja -C builddir install -j %CPU_COUNT%
+if errorlevel 1 exit 1
+
+:: create directory for modules so post-link script doesn't fail
+set "MODULEDIR=%LIBRARY_LIB%\gtk-3.0\3.0.0"
+if not exist "%MODULEDIR%" md "%MODULEDIR%"
+if errorlevel 1 exit 1
+type nul > "%MODULEDIR%\.keep"
 if errorlevel 1 exit 1
