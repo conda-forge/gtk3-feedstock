@@ -1,0 +1,14 @@
+diff --git a/gdk/quartz/gdkinternal-quartz.h b/gdk/quartz/gdkinternal-quartz.h
+index 271137171b..548a9a160e 100644
+--- a/gdk/quartz/gdkinternal-quartz.h
++++ b/gdk/quartz/gdkinternal-quartz.h
+@@ -79,7 +79,7 @@ typedef enum {
+ #define GDK_QUARTZ_EVENT_TABLET_PROXIMITY NSEventTypeTabletProximity
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_PROXIMITY NSEventSubtypeTabletProximity
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_POINT NSEventSubtypeTabletPoint
+-#elif MAC_OS_X_VERSION_MIN_REQUIRED >= 10120
++#elif MAC_OS_X_VERSION_MIN_REQUIRED >= 101000
+ #define GDK_QUARTZ_EVENT_TABLET_PROXIMITY NSTabletProximity
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_PROXIMITY NSTabletProximityEventSubtype
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_POINT NSTabletPointEventSubtype
+

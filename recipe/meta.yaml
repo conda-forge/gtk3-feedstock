@@ -15,6 +15,7 @@ source:
   patches:
     - m_pi.patch
     - no-module-warning.patch
+    - quartz-fix.diff  # [osx]
 
 build:
   number: 1
