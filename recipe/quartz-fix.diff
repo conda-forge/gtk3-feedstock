@@ -1,0 +1,34 @@
+diff --git a/gdk/quartz/gdkinternal-quartz.h b/gdk/quartz/gdkinternal-quartz.h
+index 271137171b..ec4a2c1c3b 100644
+--- a/gdk/quartz/gdkinternal-quartz.h
++++ b/gdk/quartz/gdkinternal-quartz.h
+@@ -79,14 +79,10 @@ typedef enum {
+ #define GDK_QUARTZ_EVENT_TABLET_PROXIMITY NSEventTypeTabletProximity
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_PROXIMITY NSEventSubtypeTabletProximity
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_POINT NSEventSubtypeTabletPoint
+-#elif MAC_OS_X_VERSION_MIN_REQUIRED >= 10120
++#else
+ #define GDK_QUARTZ_EVENT_TABLET_PROXIMITY NSTabletProximity
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_PROXIMITY NSTabletProximityEventSubtype
+ #define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_POINT NSTabletPointEventSubtype
+-#else
+-#define GDK_QUARTZ_EVENT_TABLET_PROXIMITY kEventTabletProximity
+-#define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_PROXIMITY NSTabletProximityEventSubtype
+-#define GDK_QUARTZ_EVENT_SUBTYPE_TABLET_POINT kCGEventMouseSubtypeTabletPoint
+ #endif
+ 
+ void         _gdk_quartz_events_update_focus_window    (GdkWindow *new_window,
+diff --git a/gdk/quartz/gdkwindow-quartz.c b/gdk/quartz/gdkwindow-quartz.c
+index 5b454341df..cb61aeb2f7 100644
+--- a/gdk/quartz/gdkwindow-quartz.c
++++ b/gdk/quartz/gdkwindow-quartz.c
+@@ -2228,7 +2228,7 @@ _gdk_quartz_window_set_collection_behavior (NSWindow *nswindow,
+                                             GdkWindowTypeHint hint)
+ {
+ #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
+-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 10110
++#if MAC_OS_X_VERSION_MIN_REQUIRED >= 101100
+ #define GDK_QUARTZ_ALLOWS_TILING NSWindowCollectionBehaviorFullScreenAllowsTiling
+ #define GDK_QUARTZ_DISALLOWS_TILING NSWindowCollectionBehaviorFullScreenDisallowsTiling
+ #else
+
