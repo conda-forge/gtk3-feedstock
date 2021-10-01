@@ -32,8 +32,7 @@ build:
 
 requirements:
   build:
-    # restrict to working meson, see https://github.com/conda-forge/gtk3-feedstock/pull/26
-    - meson 0.56.2
+    - meson
     - ninja
     - gobject-introspection
     - pkg-config
