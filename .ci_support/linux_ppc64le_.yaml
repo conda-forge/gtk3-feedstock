@@ -7,7 +7,7 @@ cairo:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 docker_image:
@@ -21,7 +21,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '2'
+- '3'
 pango:
 - '1.48'
 pin_run_as_build:
