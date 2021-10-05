@@ -7,7 +7,7 @@ c_compiler_version:
 cairo:
 - '1.16'
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 freetype:
@@ -17,7 +17,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '2'
+- '3'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pango:
