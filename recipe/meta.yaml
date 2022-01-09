@@ -15,8 +15,6 @@ source:
   patches:
     - m_pi.patch
     - no-module-warning.patch
-    # see https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/3654
-    - quartz-fix.diff  # [osx]
 
 build:
   number: 0
