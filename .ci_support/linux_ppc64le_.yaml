@@ -21,7 +21,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '3'
+- '3.1'
 pango:
 - '1.48'
 pin_run_as_build:
