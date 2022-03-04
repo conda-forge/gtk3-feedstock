@@ -83,6 +83,8 @@ requirements:
     - fontconfig  # [linux]
     # dependencies needed with wayland enabled
     #- libxkbcommon  # [linux]
+    # run dependencies needed to execute the test suite during build script
+    - adwaita-icon-theme  # [build_platform == target_platform]
   run:
     - hicolor-icon-theme
     - {{ pin_compatible('libcups') }}  # [linux]
