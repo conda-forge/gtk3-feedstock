@@ -2,7 +2,7 @@
 # This file is licensed under a 3-clause BSD license; see LICENSE.txt.
 
 {% set name = "gtk+" %}
-{% set version = "3.24.31" %}
+{% set version = "3.24.32" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
@@ -11,14 +11,14 @@ package:
 
 source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
-  sha256: 423c3e7fdb4c459ee889e35fd4d71fd2623562541c1041b11c07e5ad1ff10bf9
+  sha256: a667e13f8f86ea44455b0443f4870bf23f53f6707c1df436eb2b516c62496bff
   patches:
     - m_pi.patch
     - no-module-warning.patch
     - 0001-macOS-Fix-QuartzCore-linking-and-compiling-with-10.1.patch
 
 build:
-  number: 3
+  number: 0
   # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
   # that resulted in missing symbols
   rpaths_patcher: patchelf  # [linux]
