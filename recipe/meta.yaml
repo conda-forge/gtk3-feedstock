@@ -133,12 +133,10 @@ outputs:
         - gtk-launch --help
         - gtk-query-immodules-3.0
         - gtk-update-icon-cache --help
-        # other binaries require a display, check that they get installed
-        {% set cmds = ["gtk-builder-tool", "gtk-query-settings"] %}
-        {% for cmd in cmds %}
-        - command -v {{ cmd }}  # [unix]
-        - where {{ cmd }}  # [win]
-        {% endfor %}
+        - DISPLAY=localhost:1.0 xvfb-run -a -s "-screen 0 1024x768x24" gtk-query-settings  # [linux]
+        - gtk-query-settings  # [not linux]
+        - command -v gtk-builder-tool  # [not win]
+        - where gtk-builder-tool  # [win]
 
         # verify that (some) headers get installed
         - test -f $PREFIX/include/gail-3.0/libgail-util/gail-util.h  # [unix]
@@ -208,6 +206,19 @@ outputs:
       run:
         - {{ pin_subpackage('gtk3', exact=True) }}
         - pango
+    test:
+      commands:
+        # run selected demos
+        {% set demos = ["application_demo", "clipboard", "cursors"] %}
+        {% set demos = demos + ["dialog", "drawingarea", "menus"] %}
+        {% set demos = demos + ["glarea", "font_features", "pixbufs"] %}
+        {% set demos = demos + ["pagesetup", "textscroll", "css_basics"] %}
+        {% set demos = demos + ["themeing_style_classes", "toolpalette"] %}
+        {% set demos = demos + ["event_axes", "list_store"] %}
+        {% for demo in demos %}
+        - DISPLAY=localhost:1.0 xvfb-run -a -s "-screen 0 1024x768x24" bash -c 'gtk3-demo --run {{ demo }} --autoquit'  # [linux]
+        - gtk3-demo --run {{ demo }} --autoquit  # [not linux]
+        {% endfor %}
 
 about:
   home: http://www.gtk.org/
