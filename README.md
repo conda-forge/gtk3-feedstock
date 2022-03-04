@@ -91,6 +91,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-gtk3-green.svg)](https://anaconda.org/conda-forge/gtk3) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/gtk3.svg)](https://anaconda.org/conda-forge/gtk3) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/gtk3.svg)](https://anaconda.org/conda-forge/gtk3) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/gtk3.svg)](https://anaconda.org/conda-forge/gtk3) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-gtk3--tests-green.svg)](https://anaconda.org/conda-forge/gtk3-tests) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/gtk3-tests.svg)](https://anaconda.org/conda-forge/gtk3-tests) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/gtk3-tests.svg)](https://anaconda.org/conda-forge/gtk3-tests) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/gtk3-tests.svg)](https://anaconda.org/conda-forge/gtk3-tests) |
 
 Installing gtk3
 ===============
@@ -102,10 +103,10 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `gtk3` can be installed with:
+Once the `conda-forge` channel has been enabled, `gtk3, gtk3-tests` can be installed with:
 
 ```
-conda install gtk3
+conda install gtk3 gtk3-tests
 ```
 
 It is possible to list all of the versions of `gtk3` available on your platform with:
