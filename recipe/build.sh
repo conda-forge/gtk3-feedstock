@@ -18,24 +18,14 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
 
 meson_config_args=(
     -D gtk_doc=false
-    -D demos=false
+    -D demos=true
     -D examples=false
-    -D installed_tests=false
+    -D installed_tests=true
     -D wayland_backend=false
 )
 
 if test $(uname) == 'Darwin' ; then
 	meson_config_args+=("-Dprint_backends=file,lpr")
-fi
-
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
-    meson_config_args+=(
-        -D tests=true
-    )
-else
-    meson_config_args+=(
-        -D tests=false
-    )
 fi
 
 # ensure that the post install script is ignored
@@ -84,18 +74,3 @@ meson setup builddir \
     -Dlibdir=lib \
     --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
-ninja -C builddir install -j ${CPU_COUNT}
-
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
-    if [[ $target_platform == linux-* ]]; then
-        DISPLAY=localhost:1.0
-        DISPLAY_WRAPPER="xvfb-run -a"
-    else
-        DISPLAY_WRAPPER=""
-    fi
-    $DISPLAY_WRAPPER meson test \
-    -C builddir \
-    --print-errorlogs \
-    --num-processes ${CPU_COUNT} \
-    --no-rebuild
-fi
