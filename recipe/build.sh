@@ -87,5 +87,15 @@ ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
-    meson test -C builddir --print-errorlogs --num-processes ${CPU_COUNT} --no-rebuild
+    if [[ $target_platform == linux-* ]]; then
+        DISPLAY=localhost:1.0
+        DISPLAY_WRAPPER="xvfb-run -a"
+    else
+        DISPLAY_WRAPPER=""
+    fi
+    $DISPLAY_WRAPPER meson test \
+    -C builddir \
+    --print-errorlogs \
+    --num-processes ${CPU_COUNT} \
+    --no-rebuild
 fi
