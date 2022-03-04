@@ -23,10 +23,6 @@ set ^"MESON_OPTIONS=^
   -D installed_tests=false ^
  ^"
 
-:: move missing header into source
-move %RECIPE_DIR%\gdkkeys-win32.h gdk\win32\
-if errorlevel 1 exit 1
-
 :: configure build using meson
 meson setup builddir !MESON_OPTIONS!
 if errorlevel 1 exit 1
