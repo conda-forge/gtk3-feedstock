@@ -15,7 +15,6 @@ source:
   patches:
     - m_pi.patch
     - no-module-warning.patch
-    - 0001-macOS-Fix-QuartzCore-linking-and-compiling-with-10.1.patch
 
 build:
   number: 0
