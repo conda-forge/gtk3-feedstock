@@ -43,3 +43,7 @@ if not exist "%MODULEDIR%" md "%MODULEDIR%"
 if errorlevel 1 exit 1
 type nul > "%MODULEDIR%\.keep"
 if errorlevel 1 exit 1
+
+:: run tests
+meson test -C builddir --print-errorlogs --num-processes %CPU_COUNT% --no-rebuild
+if errorlevel 1 exit 1

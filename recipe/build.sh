@@ -28,6 +28,16 @@ if test $(uname) == 'Darwin' ; then
 	meson_config_args+=("-Dprint_backends=file,lpr")
 fi
 
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+    meson_config_args+=(
+        -D tests=true
+    )
+else
+    meson_config_args+=(
+        -D tests=false
+    )
+fi
+
 # ensure that the post install script is ignored
 export DESTDIR="/"
 
@@ -75,3 +85,7 @@ meson setup builddir \
     --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+    meson test -C builddir --print-errorlogs --num-processes ${CPU_COUNT} --no-rebuild
+fi
