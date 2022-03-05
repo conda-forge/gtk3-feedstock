@@ -134,7 +134,7 @@ outputs:
         - gtk-launch --help
         - gtk-query-immodules-3.0
         - gtk-update-icon-cache --help
-        - DISPLAY=localhost:1.0 xvfb-run -a -s "-screen 0 1024x768x24" gtk-query-settings  # [linux]
+        - xvfb-run -a -s "-screen 0 1024x768x24" gtk-query-settings  # [linux]
         - gtk-query-settings  # [not linux]
         - command -v gtk-builder-tool  # [not win]
         - where gtk-builder-tool  # [win]
@@ -219,7 +219,7 @@ outputs:
         {% set demos = demos + ["themeing_style_classes", "toolpalette"] %}
         {% set demos = demos + ["event_axes", "list_store"] %}
         {% for demo in demos %}
-        - DISPLAY=localhost:1.0 xvfb-run -a -s "-screen 0 1024x768x24" bash -c 'gtk3-demo --run {{ demo }} --autoquit'  # [linux]
+        - xvfb-run -a -s "-screen 0 1024x768x24" bash -c 'gtk3-demo --run {{ demo }} --autoquit'  # [linux]
         - gtk3-demo --run {{ demo }} --autoquit  # [not linux]
         {% endfor %}
 
