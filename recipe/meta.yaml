@@ -127,6 +127,7 @@ outputs:
       requires:
         - pkg-config
         - pygobject
+      script: run_test.py
       commands:
         # check that the binaries can run
         - gtk-encode-symbolic-svg --help
