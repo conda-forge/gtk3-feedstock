@@ -6,7 +6,7 @@ assert(3 == Gtk.get_major_version())
 # start an Xvfb virtual display if we can (if xvfbwrapper is installed)
 try:
     from xvfbwrapper import Xvfb
-except (ModuleNotFoundError, ImportError):
+except ModuleNotFoundError:
     vdisplay = None
 else:
     vdisplay = Xvfb(width=1024, height=768, colordepth=24)
