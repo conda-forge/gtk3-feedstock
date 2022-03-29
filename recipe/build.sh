@@ -54,7 +54,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
         --buildtype=release \
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
-        --wrap-mode=nofallback
+        --wrap-mode=nofallback \
+        || (cat native-build/meson-logs/meson-log.txt; false)
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
@@ -72,5 +73,6 @@ meson setup builddir \
     --buildtype=release \
     --prefix=$PREFIX \
     -Dlibdir=lib \
-    --wrap-mode=nofallback
+    --wrap-mode=nofallback \
+    || (cat builddir/meson-logs/meson-log.txt; false)
 ninja -v -C builddir -j ${CPU_COUNT}
