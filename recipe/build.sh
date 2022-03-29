@@ -18,9 +18,9 @@ export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share
 
 meson_config_args=(
     -D gtk_doc=false
-    -D demos=false
+    -D demos=true
     -D examples=false
-    -D installed_tests=false
+    -D installed_tests=true
     -D wayland_backend=false
 )
 
@@ -54,7 +54,8 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
         --buildtype=release \
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
-        --wrap-mode=nofallback
+        --wrap-mode=nofallback \
+        || (cat native-build/meson-logs/meson-log.txt; false)
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
@@ -72,6 +73,6 @@ meson setup builddir \
     --buildtype=release \
     --prefix=$PREFIX \
     -Dlibdir=lib \
-    --wrap-mode=nofallback
+    --wrap-mode=nofallback \
+    || (cat builddir/meson-logs/meson-log.txt; false)
 ninja -v -C builddir -j ${CPU_COUNT}
-ninja -C builddir install -j ${CPU_COUNT}

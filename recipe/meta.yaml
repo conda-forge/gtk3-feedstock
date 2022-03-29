@@ -6,7 +6,7 @@
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
 package:
-  name: gtk3  # note customization
+  name: gtk3-split
   version: {{ version }}
 
 source:
@@ -18,21 +18,12 @@ source:
 
 build:
   number: 1
-  # workaround for bug in LIEF (https://github.com/lief-project/LIEF/issues/239)
-  # that resulted in missing symbols
-  rpaths_patcher: patchelf  # [linux]
-  run_exports:
-    - {{ pin_subpackage('gtk3', max_pin='x') }}
-    # gtk apps need at least a default icon set for fallback
-    - adwaita-icon-theme
-  missing_dso_whitelist:
-    - '*/libX11.so*'  # [linux]
-    - '*/libXext.so*'  # [linux]
-    - /usr/lib/libcups.2.dylib    # [osx]
 
 requirements:
   build:
-    - meson
+    # meson 0.62.0 has bug that looks only for gtk4-icon-cache and not gtk-icon-cache
+    # (when removing this, get all instances below too)
+    - meson !=0.62.0
     - ninja
     - gobject-introspection
     - pkg-config
@@ -83,64 +74,158 @@ requirements:
     - fontconfig  # [linux]
     # dependencies needed with wayland enabled
     #- libxkbcommon  # [linux]
-  run:
-    - hicolor-icon-theme
-    - {{ pin_compatible('libcups') }}  # [linux]
-    - pango
-    # The post-links scripts use these
-    - glib-tools
 
-test:
-  requires:
-    - pkg-config
-    - pygobject
-  commands:
-    # check that the binaries can run
-    - gtk-encode-symbolic-svg --help
-    - gtk-launch --help
-    - gtk-query-immodules-3.0
-    - gtk-update-icon-cache --help
-    # other binaries require a display, check that they get installed
-    {% set cmds = ["gtk-builder-tool", "gtk-query-settings"] %}
-    {% for cmd in cmds %}
-    - command -v {{ cmd }}  # [unix]
-    - where {{ cmd }}  # [win]
-    {% endfor %}
+outputs:
+  - name: gtk3
+    script: install.sh  # [unix]
+    script: install.bat  # [not unix]
+    build:
+      post-link: post-link
+      run_exports:
+        - {{ pin_subpackage('gtk3', max_pin='x') }}
+        # gtk apps need at least a default icon set for fallback
+        - adwaita-icon-theme
+      missing_dso_whitelist:
+        - '*/libX11.so*'  # [linux]
+        - '*/libXcomposite.so*'  # [linux]
+        - '*/libXcursor.so*'  # [linux]
+        - '*/libXdamage.so*'  # [linux]
+        - '*/libXext.so*'  # [linux]
+        - '*/libXfixes.so*'  # [linux]
+        - '*/libXi.so*'  # [linux]
+        - '*/libXinerama.so*'  # [linux]
+        - '*/libXrandr.so*'  # [linux]
+        - /usr/lib/libcups.2.dylib    # [osx]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - meson !=0.62.0
+        - ninja
+      host:
+        - atk
+        - cairo
+        - epoxy
+        - freetype
+        - fribidi
+        - gdk-pixbuf
+        - gettext  # [osx]
+        - glib
+        - harfbuzz
+        - libcups  # [linux]
+        - libiconv  # [win]
+        - pango
+        # dependencies needed with x11 enabled
+        - at-spi2-atk  # [linux]
+        - fontconfig  # [linux]
+        # dependencies needed with wayland enabled
+        #- libxkbcommon  # [linux]
+      run:
+        - hicolor-icon-theme
+        - {{ pin_compatible('libcups') }}  # [linux]
+        - pango
+        # The post-links scripts use glib-tools
+        - glib-tools
+    test:
+      requires:
+        - pkg-config
+        - pygobject
+        - xvfbwrapper  # [linux]
+      script: run_test.py
+      commands:
+        # check that the binaries can run
+        - gtk-encode-symbolic-svg --help
+        - gtk-launch --help
+        - gtk-query-immodules-3.0
+        - gtk-update-icon-cache --help
+        - xvfb-run -a -s "-screen 0 1024x768x24" gtk-query-settings  # [linux]
+        - gtk-query-settings  # [not linux]
+        - command -v gtk-builder-tool  # [not win]
+        - where gtk-builder-tool  # [win]
 
-    # verify that (some) headers get installed
-    - test -f $PREFIX/include/gail-3.0/libgail-util/gail-util.h  # [unix]
-    - test -f $PREFIX/include/gtk-3.0/gdk/gdk.h  # [unix]
-    - test -f $PREFIX/include/gtk-3.0/gdk/x11/gdkx11window.h  # [linux]
-    - test -f $PREFIX/include/gtk-3.0/gtk/gtk.h  # [unix]
-    - test -f $PREFIX/include/gtk-3.0/unix-print/gtk/gtkunixprint.h  # [unix]
-    - if not exist %PREFIX%\\Library\\include\\gail-3.0\\libgail-util\\gail-util.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\gdk.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\win32\\gdkwin32window.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gtk\\gtk.h exit 1  # [win]
+        # verify that (some) headers get installed
+        - test -f $PREFIX/include/gail-3.0/libgail-util/gail-util.h  # [unix]
+        - test -f $PREFIX/include/gtk-3.0/gdk/gdk.h  # [unix]
+        - test -f $PREFIX/include/gtk-3.0/gdk/x11/gdkx11window.h  # [linux]
+        - test -f $PREFIX/include/gtk-3.0/gtk/gtk.h  # [unix]
+        - test -f $PREFIX/include/gtk-3.0/unix-print/gtk/gtkunixprint.h  # [unix]
+        - if not exist %PREFIX%\\Library\\include\\gail-3.0\\libgail-util\\gail-util.h exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\gdk.h exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gdk\\win32\\gdkwin32window.h exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\include\\gtk-3.0\\gtk\\gtk.h exit 1  # [win]
 
-    # verify that pkgconfig files get installed
-    {% set pcs = ["gail-3.0", "gdk-3.0", "gtk+-3.0"] %}
-    {% set pcs = pcs + ["gtk+-unix-print-3.0"] %}  # [unix]
-    {% set pcs = pcs + ["gdk-x11-3.0", "gtk+-x11-3.0"] %}  # [linux]
-    {% set pcs = pcs + ["gdk-quartz-3.0", "gtk+-quartz-3.0"] %}  # [osx]
-    {% set pcs = pcs + ["gdk-win32-3.0", "gtk+-win32-3.0"] %}  # [win]
-    {% for pc in pcs %}
-    - test -f $PREFIX/lib/pkgconfig/{{ pc }}.pc  # [unix]
-    - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}.pc exit 1  # [win]
-    {% endfor %}
+        # verify that pkgconfig files get installed
+        {% set pcs = ["gail-3.0", "gdk-3.0", "gtk+-3.0"] %}
+        {% set pcs = pcs + ["gtk+-unix-print-3.0"] %}  # [unix]
+        {% set pcs = pcs + ["gdk-x11-3.0", "gtk+-x11-3.0"] %}  # [linux]
+        {% set pcs = pcs + ["gdk-quartz-3.0", "gtk+-quartz-3.0"] %}  # [osx]
+        {% set pcs = pcs + ["gdk-win32-3.0", "gtk+-win32-3.0"] %}  # [win]
+        {% for pc in pcs %}
+        - test -f $PREFIX/lib/pkgconfig/{{ pc }}.pc  # [unix]
+        - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\{{ pc }}.pc exit 1  # [win]
+        {% endfor %}
 
-    # verify that libs get installed and can be located through pkg-config
-    {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
-    {% set pc_libs = [("gail-3.0", "gailutil-3"), ("gdk-3.0", "gdk-3")] %}
-    {% set pc_libs = pc_libs + [("gtk+-3.0", "gtk-3")] %}
-    {% for pc, lib in pc_libs %}
-    - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
-    - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
-    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
-    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
-    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
-    {% endfor %}
+        # verify that libs get installed and can be located through pkg-config
+        {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
+        {% set pc_libs = [("gail-3.0", "gailutil-3"), ("gdk-3.0", "gdk-3")] %}
+        {% set pc_libs = pc_libs + [("gtk+-3.0", "gtk-3")] %}
+        {% for pc, lib in pc_libs %}
+        - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
+        - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
+        - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
+        - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
+        - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
+        {% endfor %}
+
+        # verify that post-link script does its job
+        - test -f $PREFIX/share/glib-2.0/schemas/gschemas.compiled  # [not win]
+        - if not exist %PREFIX%\\Library\\share\\glib-2.0\\schemas\\gschemas.compiled exit 1  # [win]
+        - test -f $PREFIX/share/icons/hicolor/icon-theme.cache  # [not win]
+        - if not exist %PREFIX%\\Library\\share\\icons\\hicolor\\icon-theme.cache exit 1  # [win]
+        - test -f $PREFIX/lib/gtk-3.0/3.0.0/immodules.cache  # [not win]
+        - if not exist %PREFIX%\\Library\\lib\\gtk-3.0\\3.0.0\\immodules.cache exit 1  # [win]
+
+  - name: gtk3-tests
+    script: install.sh  # [unix]
+    script: install.bat  # [not unix]
+    build:
+      missing_dso_whitelist:
+        - '*/libX11.so*'  # [linux]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - meson !=0.62.0
+        - ninja
+      host:
+        - atk
+        - cairo
+        - epoxy
+        - gdk-pixbuf
+        - gettext  # [osx]
+        - glib
+        - {{ pin_subpackage('gtk3', exact=True) }}
+        - harfbuzz
+        - libiconv  # [win]
+        - pango
+      run:
+        - adwaita-icon-theme
+        - {{ pin_subpackage('gtk3', exact=True) }}
+        - pango
+    test:
+      commands:
+        # run selected demos
+        # (running font_features [pango] fails on linux-aarch64 and linux-ppc64le)
+        # (would be good to test it once that can be fixed to stop failing)
+        {% set demos = ["application_demo", "clipboard", "cursors"] %}
+        {% set demos = demos + ["dialog", "drawingarea", "menus"] %}
+        {% set demos = demos + ["glarea", "pickers", "pixbufs"] %}
+        {% set demos = demos + ["pagesetup", "textscroll", "css_basics"] %}
+        {% set demos = demos + ["themeing_style_classes", "toolpalette"] %}
+        {% set demos = demos + ["event_axes", "list_store"] %}
+        {% for demo in demos %}
+        - xvfb-run -a -s "-screen 0 1024x768x24" bash -c 'gtk3-demo --run {{ demo }} --autoquit'  # [linux]
+        - gtk3-demo --run {{ demo }} --autoquit  # [not linux]
+        {% endfor %}
 
 about:
   home: http://www.gtk.org/
@@ -156,6 +241,7 @@ about:
   dev_url: https://gitlab.gnome.org/GNOME/gtk
 
 extra:
+  feedstock-name: gtk3
   recipe-maintainers:
     - ryanvolz
     - stuarteberg
