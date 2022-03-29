@@ -21,7 +21,9 @@ build:
 
 requirements:
   build:
-    - meson
+    # meson 0.62.0 has bug that looks only for gtk4-icon-cache and not gtk-icon-cache
+    # (when removing this, get all instances below too)
+    - meson !=0.62.0
     - ninja
     - gobject-introspection
     - pkg-config
@@ -97,7 +99,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - meson
+        - meson !=0.62.0
         - ninja
       host:
         - atk
@@ -192,7 +194,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - meson
+        - meson !=0.62.0
         - ninja
       host:
         - atk
