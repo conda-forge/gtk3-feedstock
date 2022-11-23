@@ -3,7 +3,7 @@ c_compiler:
 c_compiler_version:
 - '10'
 cairo:
-- '1.16'
+- '1'
 cdt_name:
 - cos7
 channel_sources:
@@ -13,7 +13,7 @@ channel_targets:
 docker_image:
 - quay.io/condaforge/linux-anvil-ppc64le
 fontconfig:
-- '2.13'
+- '2'
 freetype:
 - '2'
 gdk_pixbuf:
@@ -24,16 +24,5 @@ harfbuzz:
 - '5'
 pango:
 - '1.50'
-pin_run_as_build:
-  cairo:
-    max_pin: x.x
-  fontconfig:
-    max_pin: x
-  freetype:
-    max_pin: x
-  harfbuzz:
-    max_pin: x
-  pango:
-    max_pin: x.x
 target_platform:
 - linux-ppc64le
