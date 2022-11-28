@@ -1,7 +1,7 @@
 c_compiler:
-- vs2017
+- vs2019
 cairo:
-- '1.16'
+- '1'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -15,19 +15,8 @@ glib:
 harfbuzz:
 - '5'
 libiconv:
-- '1.16'
+- '1'
 pango:
 - '1.50'
-pin_run_as_build:
-  cairo:
-    max_pin: x.x
-  freetype:
-    max_pin: x
-  harfbuzz:
-    max_pin: x
-  libiconv:
-    max_pin: x.x
-  pango:
-    max_pin: x.x
 target_platform:
 - win-64
