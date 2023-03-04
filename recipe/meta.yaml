@@ -69,6 +69,7 @@ requirements:
     - libcups  # [linux]
     - libiconv  # [win]
     - pango
+    - zlib
     # dependencies needed with x11 enabled
     - at-spi2-atk  # [linux]
     - fontconfig  # [linux]
@@ -114,6 +115,7 @@ outputs:
         - libcups  # [linux]
         - libiconv  # [win]
         - pango
+        - zlib
         # dependencies needed with x11 enabled
         - at-spi2-atk  # [linux]
         - fontconfig  # [linux]
