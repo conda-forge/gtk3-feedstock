@@ -1,11 +1,11 @@
-About gtk3
-==========
+About gtk3-feedstock
+====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gtk3-feedstock/blob/main/LICENSE.txt)
 
 Home: http://www.gtk.org/
 
 Package license: LGPL-2.0-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gtk3-feedstock/blob/main/LICENSE.txt)
 
 Summary: Version 3 of the Gtk+ graphical toolkit
 
