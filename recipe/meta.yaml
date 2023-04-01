@@ -84,15 +84,14 @@ requirements:
     # The post-links scripts use glib-tools
     - glib-tools
     # dependencies needed with x11 enabled
-    - xorg-libx11
-    - xorg-libxcomposite
-    - xorg-libxcursor
-    - xorg-libxdamage
-    - xorg-libxext
-    - xorg-libxfixes
-    - xorg-libxi
-    # xorg-libxinerama  # has a run_exports
-    - xorg-libxrandr
+    - xorg-libx11         # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxcursor     # [linux]
+    - xorg-libxdamage     # [linux]
+    - xorg-libxext        # [linux]
+    - xorg-libxfixes      # [linux]
+    - xorg-libxi          # [linux]
+    - xorg-libxrandr      # [linux]
 
 outputs:
   - name: gtk3

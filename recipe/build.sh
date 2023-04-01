@@ -69,7 +69,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
-meson setup forgebuild \
+meson setup builddir \
     ${MESON_ARGS} \
     "${meson_config_args[@]}" \
     --buildtype=release \
@@ -79,6 +79,5 @@ meson setup forgebuild \
     || (cat builddir/meson-logs/meson-log.txt; false)
 
 # print full meson configuration
-meson configure forgebuild
-ninja -v -C forgebuild -j ${CPU_COUNT}
-ninja -C forgebuild install -j ${CPU_COUNT}
+meson configure builddir
+ninja -v -C builddir -j ${CPU_COUNT}
