@@ -213,6 +213,8 @@ outputs:
         - adwaita-icon-theme
         - {{ pin_subpackage('gtk3', exact=True) }}
         - pango
+        # dependencies needed with x11 enabled
+        - xorg-libx11         # [linux]
     test:
       commands:
         # run selected demos
