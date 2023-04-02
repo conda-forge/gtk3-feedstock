@@ -1,10 +1,1 @@
-libX11
-libXcomposite
-libXcursor
-libXdamage
-libXext
-libXfixes
-libXi
-libXinerama
-libXrandr
 xorg-x11-server-Xvfb

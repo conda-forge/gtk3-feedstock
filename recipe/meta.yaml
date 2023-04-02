@@ -17,7 +17,7 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -27,24 +27,7 @@ requirements:
     - ninja
     - gobject-introspection
     - pkg-config
-    - pthread-stubs  # [linux]
     - {{ compiler('c') }}
-    - {{ cdt('libice-devel') }}  # [linux]
-    - {{ cdt('libsm-devel') }}  # [linux]
-    - {{ cdt('libx11-devel') }}  # [linux]
-    - {{ cdt('libxcomposite-devel') }}  # [linux]
-    - {{ cdt('libxcursor-devel') }}  # [linux]
-    - {{ cdt('libxdamage-devel') }}  # [linux]
-    - {{ cdt('libxext-devel') }}  # [linux]
-    - {{ cdt('libxi-devel') }}  # [linux]
-    - {{ cdt('libxinerama-devel') }}  # [linux]
-    - {{ cdt('libxfixes-devel') }}  # [linux]
-    - {{ cdt('libxrandr-devel') }}  # [linux]
-    - {{ cdt('libxrender-devel') }}  # [linux]
-    - {{ cdt('libxtst-devel') }}  # [linux]
-    - {{ cdt('mesa-libEGL-devel') }}  # [linux]
-    - {{ cdt('mesa-libGL-devel') }}  # [linux]
-    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
     # for native build prior to cross build
     - atk         # [build_platform != target_platform]
     - cairo       # [build_platform != target_platform]
@@ -70,8 +53,19 @@ requirements:
     - libiconv  # [win]
     - pango
     # dependencies needed with x11 enabled
-    - at-spi2-atk  # [linux]
-    - fontconfig  # [linux]
+    - at-spi2-atk         # [linux]
+    - fontconfig          # [linux]
+    - xorg-libx11         # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxcursor     # [linux]
+    - xorg-libxdamage     # [linux]
+    - xorg-libxext        # [linux]
+    - xorg-libxfixes      # [linux]
+    - xorg-libxi          # [linux]
+    - xorg-libxinerama    # [linux]
+    - xorg-libxrandr      # [linux]
+    - xorg-libxrender     # [linux]
+    - xorg-xineramaproto  # [linux]
     # dependencies needed with wayland enabled
     #- libxkbcommon  # [linux]
 
@@ -86,15 +80,6 @@ outputs:
         # gtk apps need at least a default icon set for fallback
         - adwaita-icon-theme
       missing_dso_whitelist:
-        - '*/libX11.so*'  # [linux]
-        - '*/libXcomposite.so*'  # [linux]
-        - '*/libXcursor.so*'  # [linux]
-        - '*/libXdamage.so*'  # [linux]
-        - '*/libXext.so*'  # [linux]
-        - '*/libXfixes.so*'  # [linux]
-        - '*/libXi.so*'  # [linux]
-        - '*/libXinerama.so*'  # [linux]
-        - '*/libXrandr.so*'  # [linux]
         - /usr/lib/libcups.2.dylib    # [osx]
     requirements:
       build:
@@ -117,6 +102,17 @@ outputs:
         # dependencies needed with x11 enabled
         - at-spi2-atk  # [linux]
         - fontconfig  # [linux]
+        - xorg-libx11         # [linux]
+        - xorg-libxcomposite  # [linux]
+        - xorg-libxcursor     # [linux]
+        - xorg-libxdamage     # [linux]
+        - xorg-libxext        # [linux]
+        - xorg-libxfixes      # [linux]
+        - xorg-libxi          # [linux]
+        - xorg-libxinerama    # [linux]
+        - xorg-libxrandr      # [linux]
+        - xorg-libxrender     # [linux]
+        - xorg-xineramaproto  # [linux]
         # dependencies needed with wayland enabled
         #- libxkbcommon  # [linux]
       run:
@@ -125,6 +121,15 @@ outputs:
         - pango
         # The post-links scripts use glib-tools
         - glib-tools
+        # dependencies needed with x11 enabled
+        - xorg-libx11         # [linux]
+        - xorg-libxcomposite  # [linux]
+        - xorg-libxcursor     # [linux]
+        - xorg-libxdamage     # [linux]
+        - xorg-libxext        # [linux]
+        - xorg-libxfixes      # [linux]
+        - xorg-libxi          # [linux]
+        - xorg-libxrandr      # [linux]
     test:
       requires:
         - pkg-config
@@ -188,9 +193,6 @@ outputs:
   - name: gtk3-tests
     script: install.sh  # [unix]
     script: install.bat  # [not unix]
-    build:
-      missing_dso_whitelist:
-        - '*/libX11.so*'  # [linux]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -211,6 +213,8 @@ outputs:
         - adwaita-icon-theme
         - {{ pin_subpackage('gtk3', exact=True) }}
         - pango
+        # dependencies needed with x11 enabled
+        - xorg-libx11         # [linux]
     test:
       commands:
         # run selected demos

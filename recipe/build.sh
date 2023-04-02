@@ -47,7 +47,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     unset CFLAGS
     unset CPPFLAGS
     export host_alias=$build_alias
-    export PKG_CONFIG_PATH=$BUILD_PREFIX/lib/pkgconfig
 
     meson setup native-build \
         "${meson_config_args[@]}" \
@@ -56,6 +55,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
         -Dlibdir=lib \
         --wrap-mode=nofallback \
         || (cat native-build/meson-logs/meson-log.txt; false)
+
+    # print full meson configuration
+    meson configure native-build
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
@@ -75,4 +77,7 @@ meson setup builddir \
     -Dlibdir=lib \
     --wrap-mode=nofallback \
     || (cat builddir/meson-logs/meson-log.txt; false)
+
+# print full meson configuration
+meson configure builddir
 ninja -v -C builddir -j ${CPU_COUNT}
