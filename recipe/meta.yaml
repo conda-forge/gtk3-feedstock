@@ -17,7 +17,7 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
@@ -67,7 +67,8 @@ requirements:
     - xorg-libxrender     # [linux]
     - xorg-xineramaproto  # [linux]
     # dependencies needed with wayland enabled
-    #- libxkbcommon  # [linux]
+    - libxkbcommon  # [linux]
+    - wayland       # [linux]
 
 outputs:
   - name: gtk3
@@ -114,7 +115,8 @@ outputs:
         - xorg-libxrender     # [linux]
         - xorg-xineramaproto  # [linux]
         # dependencies needed with wayland enabled
-        #- libxkbcommon  # [linux]
+        - libxkbcommon  # [linux]
+        - wayland       # [linux]
       run:
         - hicolor-icon-theme
         - {{ pin_compatible('libcups') }}  # [linux]
