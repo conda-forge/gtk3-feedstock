@@ -67,8 +67,9 @@ requirements:
     - xorg-libxrender     # [linux]
     - xorg-xineramaproto  # [linux]
     # dependencies needed with wayland enabled
-    - libxkbcommon  # [linux]
-    - wayland       # [linux]
+    - libxkbcommon              # [linux]
+    - wayland                   # [linux]
+    - wayland-protocols >=1.21  # [linux]
 
 outputs:
   - name: gtk3
@@ -115,8 +116,9 @@ outputs:
         - xorg-libxrender     # [linux]
         - xorg-xineramaproto  # [linux]
         # dependencies needed with wayland enabled
-        - libxkbcommon  # [linux]
-        - wayland       # [linux]
+        - libxkbcommon              # [linux]
+        - wayland                   # [linux]
+        - wayland-protocols >=1.21  # [linux]
       run:
         - hicolor-icon-theme
         - {{ pin_compatible('libcups') }}  # [linux]
