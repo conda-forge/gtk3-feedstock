@@ -21,7 +21,6 @@ meson_config_args=(
     -D demos=true
     -D examples=false
     -D installed_tests=true
-    -D wayland_backend=false
 )
 
 if test $(uname) == 'Darwin' ; then

@@ -17,17 +17,17 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 2
+  number: 3
 
 requirements:
   build:
-    # meson 0.62.0 has bug that looks only for gtk4-icon-cache and not gtk-icon-cache
-    # (when removing this, get all instances below too)
-    - meson !=0.62.0
+    - meson
     - ninja
     - gobject-introspection
     - pkg-config
     - {{ compiler('c') }}
+    - {{ cdt('mesa-libegl-devel') }}  # [linux]
+    - {{ cdt('mesa-libgl-devel') }}   # [linux]
     # for native build prior to cross build
     - atk         # [build_platform != target_platform]
     - cairo       # [build_platform != target_platform]
@@ -67,7 +67,9 @@ requirements:
     - xorg-libxrender     # [linux]
     - xorg-xineramaproto  # [linux]
     # dependencies needed with wayland enabled
-    #- libxkbcommon  # [linux]
+    - libxkbcommon              # [linux]
+    - wayland                   # [linux]
+    - wayland-protocols >=1.21  # [linux]
 
 outputs:
   - name: gtk3
@@ -84,7 +86,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - meson !=0.62.0
+        - meson
         - ninja
       host:
         - atk
@@ -114,7 +116,9 @@ outputs:
         - xorg-libxrender     # [linux]
         - xorg-xineramaproto  # [linux]
         # dependencies needed with wayland enabled
-        #- libxkbcommon  # [linux]
+        - libxkbcommon              # [linux]
+        - wayland                   # [linux]
+        - wayland-protocols >=1.21  # [linux]
       run:
         - hicolor-icon-theme
         - {{ pin_compatible('libcups') }}  # [linux]
@@ -196,7 +200,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - meson !=0.62.0
+        - meson
         - ninja
       host:
         - atk
