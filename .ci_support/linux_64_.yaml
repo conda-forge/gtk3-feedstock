@@ -21,7 +21,7 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '7'
+- '8'
 pango:
 - '1.50'
 target_platform:
