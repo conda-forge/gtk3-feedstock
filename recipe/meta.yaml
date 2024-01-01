@@ -175,6 +175,7 @@ outputs:
 
         # verify that libs get installed and can be located through pkg-config
         {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
+        {% set vs_major = "0.0" %}  # [not win]
         {% set pc_libs = [("gail-3.0", "gailutil-3"), ("gdk-3.0", "gdk-3")] %}
         {% set pc_libs = pc_libs + [("gtk+-3.0", "gtk-3")] %}
         {% for pc, lib in pc_libs %}
