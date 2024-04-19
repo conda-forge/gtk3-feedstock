@@ -21,12 +21,13 @@ build:
 
 requirements:
   build:
-    - meson
-    - ninja
-    - gobject-introspection
-    - pkg-config
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
+    - gobject-introspection
+    - meson
+    - ninja
+    - packaging
+    - pkg-config
     - {{ cdt('mesa-libegl-devel') }}  # [linux]
     - {{ cdt('mesa-libgl-devel') }}   # [linux]
     # for native build prior to cross build
