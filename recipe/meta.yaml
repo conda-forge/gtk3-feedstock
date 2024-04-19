@@ -26,6 +26,7 @@ requirements:
     - gobject-introspection
     - pkg-config
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - {{ cdt('mesa-libegl-devel') }}  # [linux]
     - {{ cdt('mesa-libgl-devel') }}   # [linux]
     # for native build prior to cross build
@@ -84,6 +85,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - meson
         - ninja
       host:
@@ -198,6 +200,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
+        - {{ stdlib('c') }}
         - meson
         - ninja
       host:
