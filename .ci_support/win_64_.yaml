@@ -1,13 +1,13 @@
 c_compiler:
 - vs2019
+c_stdlib:
+- vs
 cairo:
 - '1'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-freetype:
-- '2'
 gdk_pixbuf:
 - '2'
 glib:
