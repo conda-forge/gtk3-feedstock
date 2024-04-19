@@ -32,7 +32,6 @@ requirements:
     - atk         # [build_platform != target_platform]
     - cairo       # [build_platform != target_platform]
     - epoxy       # [build_platform != target_platform]
-    - freetype    # [build_platform != target_platform]
     - fribidi     # [build_platform != target_platform]
     - gdk-pixbuf  # [build_platform != target_platform]
     - gettext     # [osx and (build_platform != target_platform)]
@@ -43,7 +42,6 @@ requirements:
     - atk
     - cairo
     - epoxy
-    - freetype
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
@@ -92,7 +90,6 @@ outputs:
         - atk
         - cairo
         - epoxy
-        - freetype
         - fribidi
         - gdk-pixbuf
         - gettext  # [osx]
