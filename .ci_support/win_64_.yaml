@@ -13,10 +13,10 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '8'
+- '9'
 libiconv:
 - '1'
 pango:
-- '1.50'
+- '1'
 target_platform:
 - win-64
