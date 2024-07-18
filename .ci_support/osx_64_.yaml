@@ -21,10 +21,10 @@ gdk_pixbuf:
 glib:
 - '2'
 harfbuzz:
-- '8'
+- '9'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pango:
-- '1.50'
+- '1'
 target_platform:
 - osx-64
