@@ -43,6 +43,8 @@ requirements:
     - glib        # [build_platform != target_platform]
     - harfbuzz    # [build_platform != target_platform]
     - pango       # [build_platform != target_platform]
+    - expat       # [build_platform != target_platform]
+    - zlib        # [build_platform != target_platform]
   host:
     - atk
     - cairo
@@ -73,6 +75,10 @@ requirements:
     - libxkbcommon              # [linux]
     - wayland                   # [linux]
     - wayland-protocols >=1.21  # [linux]
+    # dependencies needed for pkg-config to find cairo
+    - expat
+    - zlib
+    - xorg-xorgproto        # [linux]
 
 outputs:
   - name: gtk3
