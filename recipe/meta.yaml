@@ -28,7 +28,6 @@ requirements:
     - {{ stdlib('c') }}
     - gobject-introspection
     - meson
-    - cmake
     - ninja
     - packaging
     - pkg-config
@@ -54,7 +53,8 @@ requirements:
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
-    - glib
+    - glib  # [not win]
+    - glib 2.80  # [win]
     - harfbuzz
     - libcups  # [linux]
     - libiconv  # [win]
@@ -110,7 +110,8 @@ outputs:
         - fribidi
         - gdk-pixbuf
         - gettext  # [osx]
-        - glib
+        - glib  # [not win]
+        - glib 2.80  # [win]
         - harfbuzz
         - libcups  # [linux]
         - libiconv  # [win]
@@ -139,7 +140,6 @@ outputs:
         - xorg-xorgproto        # [linux]
         # dependencies needed for pkg-config to find gdk-pixbuf
         - liblzma-devel
-
       run:
         - hicolor-icon-theme
         - {{ pin_compatible('libcups') }}  # [linux]
@@ -231,7 +231,8 @@ outputs:
         - epoxy
         - gdk-pixbuf
         - gettext  # [osx]
-        - glib
+        - glib  # [not win]
+        - glib 2.80  # [win]
         - {{ pin_subpackage('gtk3', exact=True) }}
         - harfbuzz
         - libiconv  # [win]
