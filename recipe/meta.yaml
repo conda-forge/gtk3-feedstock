@@ -53,8 +53,7 @@ requirements:
     - fribidi
     - gdk-pixbuf
     - gettext  # [osx]
-    - glib  # [not win]
-    - glib 2.80  # [win]
+    - glib
     - harfbuzz
     - libcups  # [linux]
     - libiconv  # [win]
@@ -110,8 +109,7 @@ outputs:
         - fribidi
         - gdk-pixbuf
         - gettext  # [osx]
-        - glib  # [not win]
-        - glib 2.80  # [win]
+        - glib
         - harfbuzz
         - libcups  # [linux]
         - libiconv  # [win]
@@ -231,8 +229,7 @@ outputs:
         - epoxy
         - gdk-pixbuf
         - gettext  # [osx]
-        - glib  # [not win]
-        - glib 2.80  # [win]
+        - glib
         - {{ pin_subpackage('gtk3', exact=True) }}
         - harfbuzz
         - libiconv  # [win]
