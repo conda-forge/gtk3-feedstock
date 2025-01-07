@@ -133,6 +133,13 @@ outputs:
         - libxkbcommon              # [linux]
         - wayland                   # [linux]
         - wayland-protocols >=1.21  # [linux]
+       # dependencies needed for pkg-config to find cairo
+       - expat
+       - zlib
+       - xorg-xorgproto        # [linux]
+       # dependencies needed for pkg-config to find gdk-pixbuf
+       - liblzma-devel
+
       run:
         - hicolor-icon-theme
         - {{ pin_compatible('libcups') }}  # [linux]
