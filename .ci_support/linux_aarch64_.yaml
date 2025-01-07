@@ -16,6 +16,8 @@ channel_targets:
 - conda-forge main
 docker_image:
 - quay.io/condaforge/linux-anvil-aarch64:alma9
+expat:
+- '2'
 fontconfig:
 - '2'
 gdk_pixbuf:
@@ -30,3 +32,5 @@ target_platform:
 - linux-aarch64
 tk:
 - '8.6'
+zlib:
+- '1'
