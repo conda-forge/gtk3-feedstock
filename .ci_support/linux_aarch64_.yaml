@@ -26,6 +26,8 @@ glib:
 - '2'
 harfbuzz:
 - '10'
+liblzma_devel:
+- '5'
 pango:
 - '1'
 target_platform:

@@ -18,6 +18,8 @@ harfbuzz:
 - '10'
 libiconv:
 - '1'
+liblzma_devel:
+- '5'
 pango:
 - '1'
 target_platform:

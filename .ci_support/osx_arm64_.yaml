@@ -24,6 +24,8 @@ glib:
 - '2'
 harfbuzz:
 - '10'
+liblzma_devel:
+- '5'
 macos_machine:
 - arm64-apple-darwin20.0.0
 pango:
