@@ -20,7 +20,7 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -43,6 +43,9 @@ requirements:
     - glib        # [build_platform != target_platform]
     - harfbuzz    # [build_platform != target_platform]
     - pango       # [build_platform != target_platform]
+    - expat       # [build_platform != target_platform]
+    - zlib        # [build_platform != target_platform]
+    - liblzma-devel  # [build_platform != target_platform]
   host:
     - atk
     - cairo
@@ -73,6 +76,13 @@ requirements:
     - libxkbcommon              # [linux]
     - wayland                   # [linux]
     - wayland-protocols >=1.21  # [linux]
+    # dependencies needed for pkg-config to find cairo
+    - expat
+    - zlib
+    - xorg-xorgproto        # [linux]
+    # dependencies needed for pkg-config to find gdk-pixbuf
+    - liblzma-devel
+
 
 outputs:
   - name: gtk3
@@ -122,6 +132,12 @@ outputs:
         - libxkbcommon              # [linux]
         - wayland                   # [linux]
         - wayland-protocols >=1.21  # [linux]
+        # dependencies needed for pkg-config to find cairo
+        - expat
+        - zlib
+        - xorg-xorgproto        # [linux]
+        # dependencies needed for pkg-config to find gdk-pixbuf
+        - liblzma-devel
       run:
         - hicolor-icon-theme
         - {{ pin_compatible('libcups') }}  # [linux]
