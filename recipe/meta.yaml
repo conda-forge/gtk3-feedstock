@@ -20,7 +20,7 @@ source:
     - no-module-warning.patch
 
 build:
-  number: 3
+  number: 4
 
 requirements:
   build:
@@ -34,17 +34,17 @@ requirements:
     - {{ cdt('mesa-libegl-devel') }}  # [linux]
     - {{ cdt('mesa-libgl-devel') }}   # [linux]
     # for native build prior to cross build
-    - atk         # [build_platform != target_platform]
-    - cairo       # [build_platform != target_platform]
-    - epoxy       # [build_platform != target_platform]
-    - fribidi     # [build_platform != target_platform]
-    - gdk-pixbuf  # [build_platform != target_platform]
-    - gettext     # [osx and (build_platform != target_platform)]
-    - glib        # [build_platform != target_platform]
-    - harfbuzz    # [build_platform != target_platform]
-    - pango       # [build_platform != target_platform]
-    - expat       # [build_platform != target_platform]
-    - zlib        # [build_platform != target_platform]
+    - atk            # [build_platform != target_platform]
+    - cairo          # [build_platform != target_platform]
+    - epoxy          # [build_platform != target_platform]
+    - fribidi        # [build_platform != target_platform]
+    - gdk-pixbuf     # [build_platform != target_platform]
+    - libintl-devel  # [osx and (build_platform != target_platform)]
+    - glib           # [build_platform != target_platform]
+    - harfbuzz       # [build_platform != target_platform]
+    - pango          # [build_platform != target_platform]
+    - expat          # [build_platform != target_platform]
+    - zlib           # [build_platform != target_platform]
     - liblzma-devel  # [build_platform != target_platform]
   host:
     - atk
@@ -52,7 +52,7 @@ requirements:
     - epoxy
     - fribidi
     - gdk-pixbuf
-    - gettext  # [osx]
+    - libintl-devel  # [osx]
     - glib
     - harfbuzz
     - libcups  # [linux]
@@ -108,7 +108,7 @@ outputs:
         - epoxy
         - fribidi
         - gdk-pixbuf
-        - gettext  # [osx]
+        - libintl-devel  # [osx]
         - glib
         - harfbuzz
         - libcups  # [linux]
@@ -228,7 +228,7 @@ outputs:
         - cairo
         - epoxy
         - gdk-pixbuf
-        - gettext  # [osx]
+        - libintl-devel  # [osx]
         - glib
         - {{ pin_subpackage('gtk3', exact=True) }}
         - harfbuzz
