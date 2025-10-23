@@ -12,6 +12,10 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 expat:
@@ -32,5 +36,8 @@ target_platform:
 - linux-64
 tk:
 - '8.6'
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
 zlib:
 - '1'
