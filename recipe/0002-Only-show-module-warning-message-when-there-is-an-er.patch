@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Thu, 23 Oct 2025 16:27:03 -0400
+Subject: [PATCH] Only show module warning message when there is an error
+
+---
+ gtk/gtkmodules.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/gtk/gtkmodules.c b/gtk/gtkmodules.c
+index 704e412..d5adc29 100644
+--- a/gtk/gtkmodules.c
++++ b/gtk/gtkmodules.c
+@@ -379,8 +379,10 @@ load_module (GSList      *module_list,
+         {
+           const gchar *error = g_module_error ();
+ 
+-          g_message ("Failed to load module \"%s\"%s%s",
+-                     name, error ? ": " : "", error ? error : "");
++	  if (error) {
++	    g_message ("Failed to load module \"%s\"%s%s",
++		       name, error ? ": " : "", error ? error : "");
++	  }
+         }
+     }
+ 
+-- 
+2.51.0
+
