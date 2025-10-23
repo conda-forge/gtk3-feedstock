@@ -31,8 +31,6 @@ requirements:
     - ninja
     - packaging
     - pkg-config
-    - {{ cdt('mesa-libegl-devel') }}  # [linux]
-    - {{ cdt('mesa-libgl-devel') }}   # [linux]
     # for native build prior to cross build
     - atk            # [build_platform != target_platform]
     - cairo          # [build_platform != target_platform]
@@ -56,6 +54,8 @@ requirements:
     - glib
     - harfbuzz
     - libcups  # [linux]
+    - libegl-devel  # [linux]
+    - libgl-devel  # [linux]
     - libiconv  # [win]
     - pango
     # dependencies needed with x11 enabled
