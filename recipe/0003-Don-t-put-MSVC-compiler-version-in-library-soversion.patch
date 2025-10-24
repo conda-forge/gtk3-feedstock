@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Thu, 23 Oct 2025 16:28:10 -0400
+Subject: [PATCH] Don't put MSVC compiler version in library soversion
+
+MSVC maintains binary compatibility across versions, so don't break it
+intentionally by using different soversions for the DLL name.
+---
+ meson.build | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/meson.build b/meson.build
+index cbd820d..39e1576 100644
+--- a/meson.build
++++ b/meson.build
+@@ -110,6 +110,8 @@ else
+   gtk_soversion = '0'
+ endif
+ 
++gtk_soversion = '0'
++
+ # Maintain compatibility with the Autotools build
+ 
+ gtk_library_version = ''
+-- 
+2.51.0
+

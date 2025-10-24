@@ -5,9 +5,6 @@
 {% set version = "3.24.43" %}
 {% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
 
-# this doesn't get used, but the autotick bot wants to put it in
-{% set vs_major = "0.0" %}  # [not win]
-
 package:
   name: gtk3-split
   version: {{ version }}
@@ -16,23 +13,23 @@ source:
   url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
   sha256: 7e04f0648515034b806b74ae5d774d87cffb1a2a96c468cb5be476d51bf2f3c7
   patches:
-    - m_pi.patch
-    - no-module-warning.patch
+    - 0001-Use-G_PI-instead-of-M_PI.patch
+    - 0002-Only-show-module-warning-message-when-there-is-an-er.patch
+    - 0003-Don-t-put-MSVC-compiler-version-in-library-soversion.patch
 
 build:
-  number: 5
+  number: 6
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
+    - {{ compiler('cxx') }}
     - gobject-introspection
     - meson
     - ninja
     - packaging
     - pkg-config
-    - {{ cdt('mesa-libegl-devel') }}  # [linux]
-    - {{ cdt('mesa-libgl-devel') }}   # [linux]
     # for native build prior to cross build
     - atk            # [build_platform != target_platform]
     - cairo          # [build_platform != target_platform]
@@ -56,6 +53,8 @@ requirements:
     - glib
     - harfbuzz
     - libcups  # [linux]
+    - libegl-devel  # [linux]
+    - libgl-devel  # [linux]
     - libiconv  # [win]
     - pango
     # dependencies needed with x11 enabled
@@ -193,15 +192,13 @@ outputs:
         {% endfor %}
 
         # verify that libs get installed and can be located through pkg-config
-        {% set vs_major = dict(vs2015="14", vs2017="15", vs2019="16")[c_compiler] %}  # [win]
-        {% set vs_major = "0.0" %}  # [not win]
         {% set pc_libs = [("gail-3.0", "gailutil-3"), ("gdk-3.0", "gdk-3")] %}
         {% set pc_libs = pc_libs + [("gtk+-3.0", "gtk-3")] %}
         {% for pc, lib in pc_libs %}
         - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
         - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
-        - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-vs{{ vs_major }}.dll exit 1  # [win]
-        - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-vs{{ vs_major }}.dll" exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-0.dll exit 1  # [win]
+        - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-0.dll" exit 1  # [win]
         - if not exist %PREFIX%\\Library\\lib\\{{ lib }}.lib exit 1  # [win]
         - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
         {% endfor %}
