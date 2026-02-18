@@ -12,6 +12,8 @@ cxx_compiler:
 - vs2022
 expat:
 - '2'
+freetype:
+- '2'
 gdk_pixbuf:
 - '2'
 glib:

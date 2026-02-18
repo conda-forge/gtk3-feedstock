@@ -22,6 +22,8 @@ expat:
 - '2'
 fontconfig:
 - '2'
+freetype:
+- '2'
 gdk_pixbuf:
 - '2'
 glib:
