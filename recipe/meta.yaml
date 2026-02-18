@@ -77,6 +77,7 @@ requirements:
     - wayland-protocols >=1.21  # [linux]
     # dependencies needed for pkg-config to find cairo
     - expat
+    - freetype
     - zlib
     - xorg-xorgproto        # [linux]
     # dependencies needed for pkg-config to find gdk-pixbuf
@@ -133,6 +134,7 @@ outputs:
         - wayland-protocols >=1.21  # [linux]
         # dependencies needed for pkg-config to find cairo
         - expat
+        - freetype
         - zlib
         - xorg-xorgproto        # [linux]
         # dependencies needed for pkg-config to find gdk-pixbuf
