@@ -26,16 +26,12 @@ gdk_pixbuf:
 - '2'
 glib:
 - '2'
-harfbuzz:
-- '11'
 liblzma_devel:
 - '5'
 pango:
 - '1'
 target_platform:
 - linux-64
-tk:
-- '8.6'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
