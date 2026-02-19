@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '10.13'
+- '11.0'
 MACOSX_SDK_VERSION:
-- '10.13'
+- '11.0'
 c_compiler:
 - clang
 c_compiler_version:
@@ -9,7 +9,7 @@ c_compiler_version:
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '10.13'
+- '11.0'
 cairo:
 - '1'
 channel_sources:
@@ -22,12 +22,12 @@ cxx_compiler_version:
 - '19'
 expat:
 - '2'
+freetype:
+- '2'
 gdk_pixbuf:
 - '2'
 glib:
 - '2'
-harfbuzz:
-- '11'
 liblzma_devel:
 - '5'
 macos_machine:
@@ -36,8 +36,6 @@ pango:
 - '1'
 target_platform:
 - osx-64
-tk:
-- '8.6'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

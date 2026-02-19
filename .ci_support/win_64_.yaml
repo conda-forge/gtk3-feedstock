@@ -12,12 +12,12 @@ cxx_compiler:
 - vs2022
 expat:
 - '2'
+freetype:
+- '2'
 gdk_pixbuf:
 - '2'
 glib:
 - '2'
-harfbuzz:
-- '11'
 libiconv:
 - '1'
 liblzma_devel:
@@ -26,7 +26,5 @@ pango:
 - '1'
 target_platform:
 - win-64
-tk:
-- '8.6'
 zlib:
 - '1'
