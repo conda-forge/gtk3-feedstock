@@ -16,6 +16,7 @@ source:
     - 0001-Use-G_PI-instead-of-M_PI.patch
     - 0002-Only-show-module-warning-message-when-there-is-an-er.patch
     - 0003-Don-t-put-MSVC-compiler-version-in-library-soversion.patch
+    - 0004-Add-missing-ifdef-GDK_WIN32_ENABLE_EGL.patch
 
 build:
   number: 0
