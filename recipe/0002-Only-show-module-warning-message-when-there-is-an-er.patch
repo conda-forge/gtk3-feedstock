@@ -8,10 +8,10 @@ Subject: [PATCH] Only show module warning message when there is an error
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/gtk/gtkmodules.c b/gtk/gtkmodules.c
-index 704e412..d5adc29 100644
+index f93101c..1b225e5 100644
 --- a/gtk/gtkmodules.c
 +++ b/gtk/gtkmodules.c
-@@ -379,8 +379,10 @@ load_module (GSList      *module_list,
+@@ -374,8 +374,10 @@ load_module (GSList      *module_list,
          {
            const gchar *error = g_module_error ();
  

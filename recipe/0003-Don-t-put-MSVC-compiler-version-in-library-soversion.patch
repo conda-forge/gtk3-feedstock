@@ -10,10 +10,10 @@ intentionally by using different soversions for the DLL name.
  1 file changed, 2 insertions(+)
 
 diff --git a/meson.build b/meson.build
-index cbd820d..39e1576 100644
+index f7d3f8e..50d33ba 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -110,6 +110,8 @@ else
+@@ -114,6 +114,8 @@ else
    gtk_soversion = '0'
  endif
  

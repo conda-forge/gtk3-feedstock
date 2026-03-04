@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Wed, 4 Mar 2026 15:45:04 -0500
+Subject: [PATCH] Add missing `#ifdef GDK_WIN32_ENABLE_EGL`
+
+`gdk_win32_display_is_egl_context_current` is not defined when not
+`#ifdef GDK_WIN32_ENABLE_EGL`, so fix undefined symbol by checking the
+ifdef.
+---
+ gdk/win32/gdkglcontext-win32.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/gdk/win32/gdkglcontext-win32.c b/gdk/win32/gdkglcontext-win32.c
+index 0021f8c..2b9494e 100644
+--- a/gdk/win32/gdkglcontext-win32.c
++++ b/gdk/win32/gdkglcontext-win32.c
+@@ -1558,8 +1558,10 @@ gdk_win32_display_is_gl_context_current (GdkDisplay   *display,
+   if (display_win32->gl_type == GDK_WIN32_GL_WGL)
+     return gdk_win32_display_is_wgl_context_current (display, context);
+ 
++#ifdef GDK_WIN32_ENABLE_EGL
+   if (display_win32->gl_type == GDK_WIN32_GL_EGL)
+     return gdk_win32_display_is_egl_context_current (display, context);
++#endif
+ 
+   g_assert_not_reached ();
+   return TRUE;
+-- 
+2.51.0
+
