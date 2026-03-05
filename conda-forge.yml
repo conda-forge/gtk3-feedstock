@@ -1,5 +1,10 @@
 azure:
   store_build_artifacts: true
+bot:
+  version_updates:
+    even_odd_versions: true
+    exclude:
+      - '4.3.0'
 conda_build:
   pkg_format: '2'
 conda_forge_output_validation: true
