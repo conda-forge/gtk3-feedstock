@@ -3,14 +3,14 @@
 
 {% set name = "gtk" %}
 {% set version = "3.24.51" %}
-{% set version_majmin = '.'.join(version.split('.', 2)[:2]) %}
+{% set version_minor = version.split('.', 2)[1] %}
 
 package:
   name: gtk3-split
   version: {{ version }}
 
 source:
-  url: https://download.gnome.org/sources/{{ name }}/{{ version_majmin }}/{{ name }}-{{ version }}.tar.xz
+  url: https://download.gnome.org/sources/{{ name }}/3.{{ version_minor }}/{{ name }}-{{ version }}.tar.xz
   sha256: 0013877c6bd23c2dbe42ad7c70a053d0e449be66736574e37867c49c5f905a4f
   patches:
     - 0001-Use-G_PI-instead-of-M_PI.patch
