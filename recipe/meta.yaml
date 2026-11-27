@@ -19,7 +19,7 @@ source:
     - 0004-Add-missing-ifdef-GDK_WIN32_ENABLE_EGL.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
